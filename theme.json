@@ -1,16 +1,23 @@
 {
   "id": "zen-progress-bar",
   "name": "Zen Progress Bar",
-  "description": "Full-width glow load bar; works with Zia via zia-loading overlay",
+  "description": "Full-width glow load bar; JS bar element, works with Zia",
   "homepage": "https://github.com/olegfour3/zen-progress-bar",
   "style": {
     "chrome": "chrome.css"
+  },
+  "scripts": {
+    "zen-progress-bar.uc.js": {
+      "include": [
+        "chrome://browser/content/browser.xhtml"
+      ]
+    }
   },
   "preferences": "preferences.json",
   "readme": "README.md",
   "image": "preview.png",
   "author": "oleg",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "tags": [
     "loadbar",
     "progress",
@@ -21,5 +28,5 @@
     "zen"
   ],
   "createdAt": "2026-10-22",
-  "updatedAt": "2026-10-22T21:30:43.000Z"
+  "updatedAt": "2026-10-22T21:33:52.000Z"
 }

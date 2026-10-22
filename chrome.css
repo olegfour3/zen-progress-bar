@@ -1,12 +1,5 @@
-/* Zen Progress Bar — full-width load indicator for Zen + Sine Mods
- *
- * Zia hides #zen-loading-progress-bar and drives load via :root[zia-loading].
- * We draw .browserSidebarContainer.deck-selected::after (page card top),
- * out of flow via position:absolute (Zia’s transform already makes a CB —
- * do NOT set position:relative on the container — that collapsed layout).
- *
- * No clip-path: a full clip hid the bar for the whole load; only glow
- * flashed at the end. Use scaleX so the solid bar is visible immediately.
+/* Zen Progress Bar — styles for #zpb-bar (created by zen-progress-bar.uc.js).
+ * Zia hides Zen’s #zen-loading-progress-bar; we use our own element instead.
  */
 
 :root {
@@ -52,8 +45,7 @@
   }
 }
 
-.browserSidebarContainer.deck-selected::after {
-  content: "" !important;
+#zpb-bar {
   position: absolute !important;
   top: 0 !important;
   right: 0 !important;
@@ -62,38 +54,31 @@
   width: auto !important;
   height: var(--zpb-height) !important;
   min-height: var(--zpb-height) !important;
+  max-height: var(--zpb-height) !important;
   margin: 0 !important;
   padding: 0 !important;
   border: none !important;
   border-radius: 0 !important;
   background-color: var(--zpb-bar-colour) !important;
-  background-image: none !important;
   box-shadow: 0 0 var(--zpb-glow-blur) var(--zpb-bar-colour) !important;
   z-index: 2147483646 !important;
   pointer-events: none !important;
+  display: none !important;
+  flex: none !important;
   transform-origin: left center !important;
-  transform: scaleX(0) !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  transition: none !important;
+  overflow: visible !important;
 }
 
-/* Zia load flag (attribute present or ="true") */
-:root[zia-loading] .browserSidebarContainer.deck-selected::after,
-:root[zia-loading="true"] .browserSidebarContainer.deck-selected::after,
-/* Stock Zen tab busy */
-:root:has(.tabbrowser-tab[selected][busy]) .browserSidebarContainer.deck-selected::after,
-:root:has(.tabbrowser-tab[selected="true"][busy]) .browserSidebarContainer.deck-selected::after,
-:root:has(.tabbrowser-tab[selected][busy="true"]) .browserSidebarContainer.deck-selected::after {
-  visibility: visible !important;
-  opacity: 1 !important;
+:root[zpb-active] #zpb-bar,
+:root[zpb-active="true"] #zpb-bar {
+  display: flex !important;
   animation: zpb-grow 1.15s ease-out infinite alternate !important;
 }
 
 @keyframes zpb-grow {
   from {
-    transform: scaleX(0.18);
-    opacity: 0.85;
+    transform: scaleX(0.2);
+    opacity: 0.9;
   }
   to {
     transform: scaleX(1);
@@ -102,42 +87,37 @@
 }
 
 @media (-moz-pref("uc.zen-progress-bar.enabled", false)) {
-  .browserSidebarContainer.deck-selected::after {
-    content: none !important;
+  #zpb-bar {
+    display: none !important;
     animation: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
   }
 }
 
 @media (-moz-pref("uc.zen-progress-bar.glow", false)) {
-  .browserSidebarContainer.deck-selected::after {
+  #zpb-bar {
     box-shadow: none !important;
   }
 }
 
 @media (-moz-pref("uc.zen-progress-bar.rounded", false)) {
-  .browserSidebarContainer.deck-selected::after {
+  #zpb-bar {
     border-radius: 0 !important;
   }
 }
 
 @media (-moz-pref("uc.zen-progress-bar.rounded", true)) {
-  .browserSidebarContainer.deck-selected::after {
+  #zpb-bar {
     border-radius: 0 var(--zpb-height) var(--zpb-height) 0 !important;
   }
 }
 
 @media (-moz-pref("uc.zen-progress-bar.position", "bottom")) {
-  .browserSidebarContainer.deck-selected::after {
+  #zpb-bar {
     top: auto !important;
     bottom: 0 !important;
   }
 }
 
-.browserSidebarContainer.zen-glance-background::after {
-  content: none !important;
-  animation: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
+.browserSidebarContainer.zen-glance-background > #zpb-bar {
+  display: none !important;
 }

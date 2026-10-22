@@ -2,7 +2,7 @@
 
 Full-width thin loading bar with glow for [Zen Browser](https://zen-browser.app/), installed via [Sine Mods](https://github.com/CosmoCreeper/Sine).
 
-Thin full-width glow bar while a page loads. CSS-only. Under **Zia** the native Zen pill is hidden and load state lives on `:root[zia-loading]` — this mod listens to that (and to tab `[busy]` without Zia), painting `#zen-appcontent-wrapper::after` so nothing needs disabling.
+Thin full-width glow bar while a page loads. Uses a small `zen-progress-bar.uc.js` that inserts `#zpb-bar` and toggles `:root[zpb-active]` from Zia’s `zia-loading` and tab `busy`/`progress` — so it works even when Zia hides Zen’s native pill.
 
 ## Install (Sine)
 
