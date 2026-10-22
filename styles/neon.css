@@ -1,4 +1,4 @@
-/* Neon — glow + pulse; dual rim. Only when style=neon (no global white bleed). */
+/* Neon — glow + pulse only (no outline/rim frame). */
 
 @keyframes zpb-neon-pulse {
   from {
@@ -17,12 +17,12 @@
     min-height: var(--zpb-height) !important;
     max-height: var(--zpb-height) !important;
     border: none !important;
+    outline: none !important;
     background-color: var(--zpb-bar-colour) !important;
     background-image: none !important;
     mix-blend-mode: normal !important;
     clip-path: none !important;
     box-shadow:
-      var(--zpb-rim),
       0 0 var(--zpb-glow-blur) var(--zpb-bar-colour),
       0 0 calc(var(--zpb-glow-blur) * 2.2) var(--zpb-bar-colour) !important;
   }
@@ -36,6 +36,6 @@
 @media (-moz-pref("uc.zen-progress-bar.style", "neon")) and
   (-moz-pref("uc.zen-progress-bar.glow", false)) {
   #zpb-bar {
-    box-shadow: var(--zpb-rim) !important;
+    box-shadow: none !important;
   }
 }

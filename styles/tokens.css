@@ -4,8 +4,6 @@
   --zpb-height: 2px;
   --zpb-glow-blur: 6px;
   --zpb-bar-colour: #ffffff;
-  /* dual rim: readable on both light and dark pages */
-  --zpb-rim: 0 0 0 1px rgba(0, 0, 0, 0.55), 0 0 0 2px rgba(255, 255, 255, 0.95);
 }
 
 @media (-moz-pref("uc.zen-progress-bar.height", "1")) {
