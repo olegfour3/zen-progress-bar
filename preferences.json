@@ -17,7 +17,9 @@
     "options": [
       { "label": "Neon (default)", "value": "neon" },
       { "label": "Windows XP", "value": "xp" },
-      { "label": "Minimal line", "value": "line" }
+      { "label": "Minimal line", "value": "line" },
+      { "label": "Soft track", "value": "soft" },
+      { "label": "Ink hairline", "value": "ink" }
     ]
   },
   {
@@ -25,6 +27,7 @@
     "property": "uc.zen-progress-bar.height",
     "label": "Bar height",
     "defaultValue": "2",
+    "operator": "OR",
     "options": [
       { "label": "1px (hairline)", "value": "1" },
       { "label": "2px (default)", "value": "2" },
@@ -32,7 +35,10 @@
       { "label": "4px", "value": "4" }
     ],
     "conditions": [
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } }
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } },
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "line" } },
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "soft" } },
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "ink" } }
     ]
   },
   {
@@ -40,13 +46,17 @@
     "property": "uc.zen-progress-bar.color-mode",
     "label": "Color mode",
     "defaultValue": "contrast",
+    "operator": "OR",
     "options": [
       { "label": "Contrast vs page (default)", "value": "contrast" },
       { "label": "Zen accent", "value": "accent" },
       { "label": "Custom", "value": "custom" }
     ],
     "conditions": [
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } }
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } },
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "line" } },
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "soft" } },
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "ink" } }
     ]
   },
   {
@@ -55,8 +65,17 @@
     "label": "Custom color (CSS)",
     "border": "value",
     "placeholder": "#7aa2f7",
+    "operator": "AND",
     "conditions": [
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } },
+      {
+        "operator": "OR",
+        "conditions": [
+          { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } },
+          { "if": { "property": "uc.zen-progress-bar.style", "value": "line" } },
+          { "if": { "property": "uc.zen-progress-bar.style", "value": "soft" } },
+          { "if": { "property": "uc.zen-progress-bar.style", "value": "ink" } }
+        ]
+      },
       { "if": { "property": "uc.zen-progress-bar.color-mode", "value": "custom" } }
     ]
   },
@@ -65,8 +84,12 @@
     "property": "uc.zen-progress-bar.glow",
     "label": "Glow effect",
     "defaultValue": true,
+    "operator": "OR",
     "conditions": [
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } }
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } },
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "line" } },
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "soft" } },
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "ink" } }
     ]
   },
   {
@@ -74,13 +97,22 @@
     "property": "uc.zen-progress-bar.glow-strength",
     "label": "Glow strength",
     "defaultValue": "medium",
+    "operator": "AND",
     "options": [
       { "label": "Soft", "value": "soft" },
       { "label": "Medium (default)", "value": "medium" },
       { "label": "Strong", "value": "strong" }
     ],
     "conditions": [
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } },
+      {
+        "operator": "OR",
+        "conditions": [
+          { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } },
+          { "if": { "property": "uc.zen-progress-bar.style", "value": "line" } },
+          { "if": { "property": "uc.zen-progress-bar.style", "value": "soft" } },
+          { "if": { "property": "uc.zen-progress-bar.style", "value": "ink" } }
+        ]
+      },
       { "if": { "property": "uc.zen-progress-bar.glow", "value": true } }
     ]
   },
@@ -99,8 +131,12 @@
     "property": "uc.zen-progress-bar.rounded",
     "label": "Rounded leading edge",
     "defaultValue": true,
+    "operator": "OR",
     "conditions": [
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } }
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } },
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "line" } },
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "soft" } },
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "ink" } }
     ]
   }
 ]

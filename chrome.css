@@ -1,8 +1,11 @@
 /* Zen Progress Bar — shared geometry; styles in styles/*.css */
 
+@import url("styles/tokens.css");
 @import url("styles/neon.css");
 @import url("styles/xp.css");
 @import url("styles/line.css");
+@import url("styles/soft.css");
+@import url("styles/ink.css");
 
 :root {
   --zpb-p: 0.02;

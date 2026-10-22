@@ -1,0 +1,30 @@
+/* Ink hairline — ultra-minimal scaleX line; little glow unless enabled. */
+
+@media (-moz-pref("uc.zen-progress-bar.style", "ink")) {
+  #zpb-bar {
+    height: var(--zpb-height) !important;
+    min-height: var(--zpb-height) !important;
+    max-height: var(--zpb-height) !important;
+    border: none !important;
+    mix-blend-mode: normal !important;
+    filter: none !important;
+    opacity: 1 !important;
+    background-color: var(--zpb-bar-colour) !important;
+    background-image: none !important;
+    clip-path: none !important;
+    box-shadow: 0 0 var(--zpb-glow-blur) var(--zpb-bar-colour) !important;
+    overflow: visible !important;
+  }
+
+  :root[zpb-active] #zpb-bar,
+  :root[zpb-active="true"] #zpb-bar {
+    animation: none !important;
+  }
+}
+
+@media (-moz-pref("uc.zen-progress-bar.style", "ink")) and
+  (-moz-pref("uc.zen-progress-bar.glow", false)) {
+  #zpb-bar {
+    box-shadow: none !important;
+  }
+}

@@ -1,7 +1,7 @@
 {
   "id": "zen-progress-bar",
   "name": "Zen Progress Bar",
-  "description": "Neon pulse restored; Minimal line (NProgress) replaces glass",
+  "description": "Soft + Ink styles; full Appearance prefs for neon/line/soft/ink",
   "homepage": "https://github.com/olegfour3/zen-progress-bar",
   "style": {
     "chrome": "chrome.css"
@@ -17,7 +17,7 @@
   "readme": "README.md",
   "image": "preview.png",
   "author": "oleg",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "tags": [
     "loadbar",
     "progress",
@@ -28,5 +28,5 @@
     "zen"
   ],
   "createdAt": "2026-10-22",
-  "updatedAt": "2026-10-22T22:22:58.000Z"
+  "updatedAt": "2026-10-22T22:26:29.000Z"
 }

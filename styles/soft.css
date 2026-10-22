@@ -1,0 +1,51 @@
+/* Soft track — muted full-width track + rounded fill (progress via background-size). */
+
+@media (-moz-pref("uc.zen-progress-bar.style", "soft")) {
+  #zpb-bar {
+    transform: none !important;
+    width: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: max(4px, var(--zpb-height)) !important;
+    min-height: max(4px, var(--zpb-height)) !important;
+    max-height: max(8px, var(--zpb-height)) !important;
+    border: none !important;
+    border-radius: 999px !important;
+    mix-blend-mode: normal !important;
+    filter: none !important;
+    opacity: 1 !important;
+    clip-path: none !important;
+    background-color: rgba(128, 128, 128, 0.22) !important;
+    background-image: linear-gradient(
+      90deg,
+      var(--zpb-bar-colour),
+      var(--zpb-bar-colour)
+    ) !important;
+    background-size: calc(var(--zpb-p, 0.02) * 100%) 100% !important;
+    background-repeat: no-repeat !important;
+    background-position: left center !important;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+      0 0 var(--zpb-glow-blur) color-mix(in srgb, var(--zpb-bar-colour) 40%, transparent) !important;
+    overflow: hidden !important;
+  }
+
+  :root[zpb-active] #zpb-bar,
+  :root[zpb-active="true"] #zpb-bar {
+    animation: none !important;
+  }
+}
+
+@media (-moz-pref("uc.zen-progress-bar.style", "soft")) and
+  (-moz-pref("uc.zen-progress-bar.glow", false)) {
+  #zpb-bar {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06) !important;
+  }
+}
+
+@media (-moz-pref("uc.zen-progress-bar.style", "soft")) and
+  (-moz-pref("uc.zen-progress-bar.rounded", false)) {
+  #zpb-bar {
+    border-radius: 0 !important;
+  }
+}

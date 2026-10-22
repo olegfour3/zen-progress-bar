@@ -1,27 +1,21 @@
-/*
- * Minimal line — NProgress / BProgress style: 2px, accent #29d, soft tip glow.
- * Width via shared scaleX(--zpb-p). No track, no glass.
- */
+/* Minimal line — NProgress-like tip glow; colours/height from tokens. */
 
-/* "tahoe" kept as alias for anyone who still has the old pref value */
 @media (-moz-pref("uc.zen-progress-bar.style", "line")),
   (-moz-pref("uc.zen-progress-bar.style", "tahoe")) {
   #zpb-bar {
-    height: 2px !important;
-    min-height: 2px !important;
-    max-height: 2px !important;
+    height: var(--zpb-height) !important;
+    min-height: var(--zpb-height) !important;
+    max-height: var(--zpb-height) !important;
     border: none !important;
-    border-radius: 0 !important;
     mix-blend-mode: normal !important;
     filter: none !important;
     opacity: 1 !important;
-    background-color: #29d !important;
+    background-color: var(--zpb-bar-colour) !important;
     background-image: none !important;
     clip-path: none !important;
-    /* classic nprogress tip glow */
     box-shadow:
-      0 0 8px #29d,
-      0 0 4px #29d !important;
+      0 0 var(--zpb-glow-blur) var(--zpb-bar-colour),
+      0 0 calc(var(--zpb-glow-blur) * 0.6) var(--zpb-bar-colour) !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     overflow: visible !important;
@@ -30,5 +24,14 @@
   :root[zpb-active] #zpb-bar,
   :root[zpb-active="true"] #zpb-bar {
     animation: none !important;
+  }
+}
+
+@media (-moz-pref("uc.zen-progress-bar.style", "line")) and
+  (-moz-pref("uc.zen-progress-bar.glow", false)),
+  (-moz-pref("uc.zen-progress-bar.style", "tahoe")) and
+  (-moz-pref("uc.zen-progress-bar.glow", false)) {
+  #zpb-bar {
+    box-shadow: none !important;
   }
 }

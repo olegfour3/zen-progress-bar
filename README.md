@@ -4,7 +4,14 @@ Full-width loading bar for [Zen Browser](https://zen-browser.app/), installed vi
 
 Inserts `#zpb-bar` into the selected `.browserSidebarContainer` and toggles `:root[zpb-active]` from Zia’s `zia-loading`, tab `busy`/`progress`, and top-level window load state. Works when Zia hides Zen’s native pill.
 
-**Styles:** Neon (glow + pulse), Windows XP (fixed green blocks), Minimal line (NProgress-style 2px) — each in `styles/*.css`, `@import`ed from `chrome.css`.  
+**Styles** (under `styles/`, `@import`ed from `chrome.css`):
+
+- **Neon** — glow + continuous pulse
+- **Windows XP** — fixed-width green blocks on white (clip reveal)
+- **Minimal line** — NProgress-like tip glow
+- **Soft track** — muted full-width track + rounded fill
+- **Ink hairline** — ultra-minimal thin line
+
 **Progress:** Zia-like smooth bar (`shown` → `target` with estimate creep). Bytes from `onProgressChange` only push the target up (capped at 95%); finish eases to 100% then hides.
 
 ## Install (Sine)
@@ -35,21 +42,22 @@ Available in the Sine mod preferences panel (`uc.zen-progress-bar.*`):
 | Setting | Default | Notes |
 |--------|---------|--------|
 | Enable progress bar | on | Master toggle |
-| Style | Neon | Neon / Windows XP / Minimal line |
-| Bar height | 2px | Neon only — 1 / 2 / 3 / 4 px |
-| Color mode | contrast | Neon only — contrast vs page / Zen accent / custom |
-| Custom color | (custom mode) | Neon only — any CSS color |
-| Glow effect | on | Neon only — soft drop-shadow |
-| Glow strength | medium | Neon only — soft / medium / strong |
-| Position | top | All styles — top or bottom of the content area |
-| Rounded leading edge | on | Neon only |
+| Style | Neon | Neon / Windows XP / Minimal line / Soft track / Ink hairline |
+| Bar height | 2px | Neon, Line, Soft, Ink — 1 / 2 / 3 / 4 px (not XP) |
+| Color mode | contrast | Neon, Line, Soft, Ink — contrast / Zen accent / custom |
+| Custom color | (custom mode) | Neon, Line, Soft, Ink — any CSS color |
+| Glow effect | on | Neon, Line, Soft, Ink |
+| Glow strength | medium | soft / medium / strong |
+| Position | top | All styles — top or bottom |
+| Rounded leading edge | on | Neon, Line, Soft, Ink (Soft is pill-shaped when on) |
 
-**Progress behavior:** starts near ~25%, eases toward ~90% while loading (estimate), real bytes can advance the target sooner; on complete, eases to full width then disappears (~150ms). Neon also pulses glow/opacity the whole time.
+**Progress behavior:** starts near ~25%, eases toward ~90% while loading (estimate), real bytes can advance the target sooner; on complete, eases to full width then disappears (~150ms). Neon also pulses while visible.
 
 ## Acceptance checklist
 
 - [ ] Mod appears after installing `olegfour3/zen-progress-bar` in Sine
-- [ ] Neon / XP / Tahoe styles switch in Sine prefs and look distinct
+- [ ] Neon / XP / Line / Soft / Ink switch in Sine prefs and look distinct
+- [ ] Height / color / glow work for Neon, Line, Soft, Ink
 - [ ] On navigation the bar grows smoothly (not stuck as a short stub)
 - [ ] Neon pulses while visible; width still follows progress
 - [ ] After load, bar reaches full width then hides
@@ -58,8 +66,8 @@ Available in the Sine mod preferences panel (`uc.zen-progress-bar.*`):
 
 ## Compatibility notes
 
-- **Works with Zia.** Zia hides `#zen-loading-progress-bar` and uses a urlbar loader (`zia-loading`). We draw `#zpb-bar` inside `.browserSidebarContainer` from that flag and tab/window load state — Zia stays on. Progress math mirrors Zia’s urlbar loader, not packet-only width.
-- **Sine:** CSS must not be wrapped in `@-moz-document` — Sine injects chrome sheets itself. Style files: `styles/neon.css`, `xp.css`, `line.css` — `@import`ed from `chrome.css`.
+- **Works with Zia.** Zia hides `#zen-loading-progress-bar` and uses a urlbar loader (`zia-loading`). We draw `#zpb-bar` inside `.browserSidebarContainer` from that flag and tab/window load state — Zia stays on.
+- **Sine:** CSS must not be wrapped in `@-moz-document` — Sine injects chrome sheets itself. Shared tokens live in `styles/tokens.css`.
 - **Sine updates:** detection uses `updatedAt` (strictly newer ISO date); `version` is for humans / display.
 - **Zen updates:** Chrome selectors can change after major Zen releases; re-check the bar if it jumps.
 
