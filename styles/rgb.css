@@ -1,0 +1,66 @@
+/* RGB prism — cycling rainbow fill (replaces ink). */
+
+@keyframes zpb-rgb-shift {
+  from {
+    filter: hue-rotate(0deg) saturate(1.2);
+  }
+  to {
+    filter: hue-rotate(360deg) saturate(1.35);
+  }
+}
+
+@media (-moz-pref("uc.zen-progress-bar.style", "rgb")),
+  (-moz-pref("uc.zen-progress-bar.style", "ink")) {
+  #zpb-bar {
+    height: var(--zpb-height) !important;
+    min-height: var(--zpb-height) !important;
+    max-height: var(--zpb-height) !important;
+    border: none !important;
+    mix-blend-mode: normal !important;
+    opacity: 1 !important;
+    clip-path: none !important;
+    /* vivid base; hue-rotate cycles the spectrum */
+    background-color: transparent !important;
+    background-image: linear-gradient(
+      90deg,
+      #ff0040,
+      #ffcc00,
+      #00e676,
+      #00b0ff,
+      #d500f9,
+      #ff0040
+    ) !important;
+    background-size: 200% 100% !important;
+    background-repeat: no-repeat !important;
+    box-shadow:
+      var(--zpb-rim),
+      0 0 var(--zpb-glow-blur) #ff0040,
+      0 0 calc(var(--zpb-glow-blur) * 1.4) #00b0ff !important;
+    overflow: visible !important;
+  }
+
+  :root[zpb-active] #zpb-bar,
+  :root[zpb-active="true"] #zpb-bar {
+    animation:
+      zpb-rgb-shift 2.4s linear infinite,
+      zpb-rgb-slide 1.8s linear infinite !important;
+  }
+}
+
+@keyframes zpb-rgb-slide {
+  from {
+    background-position: 0% 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
+}
+
+@media (-moz-pref("uc.zen-progress-bar.style", "rgb")) and
+  (-moz-pref("uc.zen-progress-bar.glow", false)),
+  (-moz-pref("uc.zen-progress-bar.style", "ink")) and
+  (-moz-pref("uc.zen-progress-bar.glow", false)) {
+  #zpb-bar {
+    box-shadow: var(--zpb-rim) !important;
+  }
+}

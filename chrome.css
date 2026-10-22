@@ -5,7 +5,7 @@
 @import url("styles/xp.css");
 @import url("styles/line.css");
 @import url("styles/soft.css");
-@import url("styles/ink.css");
+@import url("styles/rgb.css");
 
 :root {
   --zpb-p: 0.02;

@@ -15,11 +15,26 @@
     "label": "Style",
     "defaultValue": "neon",
     "options": [
-      { "label": "Neon (default)", "value": "neon" },
-      { "label": "Windows XP", "value": "xp" },
-      { "label": "Minimal line", "value": "line" },
-      { "label": "Soft track", "value": "soft" },
-      { "label": "Ink hairline", "value": "ink" }
+      {
+        "label": "Neon (default)",
+        "value": "neon"
+      },
+      {
+        "label": "Windows XP",
+        "value": "xp"
+      },
+      {
+        "label": "Minimal line",
+        "value": "line"
+      },
+      {
+        "label": "Soft track",
+        "value": "soft"
+      },
+      {
+        "label": "RGB prism",
+        "value": "rgb"
+      }
     ]
   },
   {
@@ -29,16 +44,48 @@
     "defaultValue": "2",
     "operator": "OR",
     "options": [
-      { "label": "1px (hairline)", "value": "1" },
-      { "label": "2px (default)", "value": "2" },
-      { "label": "3px", "value": "3" },
-      { "label": "4px", "value": "4" }
+      {
+        "label": "1px (hairline)",
+        "value": "1"
+      },
+      {
+        "label": "2px (default)",
+        "value": "2"
+      },
+      {
+        "label": "3px",
+        "value": "3"
+      },
+      {
+        "label": "4px",
+        "value": "4"
+      }
     ],
     "conditions": [
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } },
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "line" } },
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "soft" } },
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "ink" } }
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.style",
+          "value": "neon"
+        }
+      },
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.style",
+          "value": "line"
+        }
+      },
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.style",
+          "value": "soft"
+        }
+      },
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.style",
+          "value": "rgb"
+        }
+      }
     ]
   },
   {
@@ -48,15 +95,44 @@
     "defaultValue": "contrast",
     "operator": "OR",
     "options": [
-      { "label": "Contrast vs page (default)", "value": "contrast" },
-      { "label": "Zen accent", "value": "accent" },
-      { "label": "Custom", "value": "custom" }
+      {
+        "label": "Contrast vs page (default)",
+        "value": "contrast"
+      },
+      {
+        "label": "Zen accent",
+        "value": "accent"
+      },
+      {
+        "label": "Custom",
+        "value": "custom"
+      }
     ],
     "conditions": [
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } },
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "line" } },
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "soft" } },
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "ink" } }
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.style",
+          "value": "neon"
+        }
+      },
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.style",
+          "value": "line"
+        }
+      },
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.style",
+          "value": "soft"
+        }
+      },
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.style",
+          "value": "rgb"
+        }
+      }
     ]
   },
   {
@@ -70,13 +146,38 @@
       {
         "operator": "OR",
         "conditions": [
-          { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } },
-          { "if": { "property": "uc.zen-progress-bar.style", "value": "line" } },
-          { "if": { "property": "uc.zen-progress-bar.style", "value": "soft" } },
-          { "if": { "property": "uc.zen-progress-bar.style", "value": "ink" } }
+          {
+            "if": {
+              "property": "uc.zen-progress-bar.style",
+              "value": "neon"
+            }
+          },
+          {
+            "if": {
+              "property": "uc.zen-progress-bar.style",
+              "value": "line"
+            }
+          },
+          {
+            "if": {
+              "property": "uc.zen-progress-bar.style",
+              "value": "soft"
+            }
+          },
+          {
+            "if": {
+              "property": "uc.zen-progress-bar.style",
+              "value": "rgb"
+            }
+          }
         ]
       },
-      { "if": { "property": "uc.zen-progress-bar.color-mode", "value": "custom" } }
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.color-mode",
+          "value": "custom"
+        }
+      }
     ]
   },
   {
@@ -86,10 +187,30 @@
     "defaultValue": true,
     "operator": "OR",
     "conditions": [
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } },
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "line" } },
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "soft" } },
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "ink" } }
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.style",
+          "value": "neon"
+        }
+      },
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.style",
+          "value": "line"
+        }
+      },
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.style",
+          "value": "soft"
+        }
+      },
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.style",
+          "value": "rgb"
+        }
+      }
     ]
   },
   {
@@ -99,21 +220,55 @@
     "defaultValue": "medium",
     "operator": "AND",
     "options": [
-      { "label": "Soft", "value": "soft" },
-      { "label": "Medium (default)", "value": "medium" },
-      { "label": "Strong", "value": "strong" }
+      {
+        "label": "Soft",
+        "value": "soft"
+      },
+      {
+        "label": "Medium (default)",
+        "value": "medium"
+      },
+      {
+        "label": "Strong",
+        "value": "strong"
+      }
     ],
     "conditions": [
       {
         "operator": "OR",
         "conditions": [
-          { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } },
-          { "if": { "property": "uc.zen-progress-bar.style", "value": "line" } },
-          { "if": { "property": "uc.zen-progress-bar.style", "value": "soft" } },
-          { "if": { "property": "uc.zen-progress-bar.style", "value": "ink" } }
+          {
+            "if": {
+              "property": "uc.zen-progress-bar.style",
+              "value": "neon"
+            }
+          },
+          {
+            "if": {
+              "property": "uc.zen-progress-bar.style",
+              "value": "line"
+            }
+          },
+          {
+            "if": {
+              "property": "uc.zen-progress-bar.style",
+              "value": "soft"
+            }
+          },
+          {
+            "if": {
+              "property": "uc.zen-progress-bar.style",
+              "value": "rgb"
+            }
+          }
         ]
       },
-      { "if": { "property": "uc.zen-progress-bar.glow", "value": true } }
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.glow",
+          "value": true
+        }
+      }
     ]
   },
   {
@@ -122,8 +277,14 @@
     "label": "Position",
     "defaultValue": "top",
     "options": [
-      { "label": "Top", "value": "top" },
-      { "label": "Bottom", "value": "bottom" }
+      {
+        "label": "Top",
+        "value": "top"
+      },
+      {
+        "label": "Bottom",
+        "value": "bottom"
+      }
     ]
   },
   {
@@ -133,10 +294,30 @@
     "defaultValue": true,
     "operator": "OR",
     "conditions": [
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } },
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "line" } },
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "soft" } },
-      { "if": { "property": "uc.zen-progress-bar.style", "value": "ink" } }
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.style",
+          "value": "neon"
+        }
+      },
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.style",
+          "value": "line"
+        }
+      },
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.style",
+          "value": "soft"
+        }
+      },
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.style",
+          "value": "rgb"
+        }
+      }
     ]
   }
 ]

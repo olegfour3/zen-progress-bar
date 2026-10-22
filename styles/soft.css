@@ -1,4 +1,13 @@
-/* Soft track — muted full-width track + rounded fill (progress via background-size). */
+/* Soft track — muted track + fill; sliding sheen; rim for light pages. */
+
+@keyframes zpb-soft-sheen {
+  from {
+    background-position: -40% 0, left center;
+  }
+  to {
+    background-position: 140% 0, left center;
+  }
+}
 
 @media (-moz-pref("uc.zen-progress-bar.style", "soft")) {
   #zpb-bar {
@@ -9,37 +18,46 @@
     height: max(4px, var(--zpb-height)) !important;
     min-height: max(4px, var(--zpb-height)) !important;
     max-height: max(8px, var(--zpb-height)) !important;
-    border: none !important;
+    border: 1px solid rgba(0, 0, 0, 0.18) !important;
     border-radius: 999px !important;
     mix-blend-mode: normal !important;
     filter: none !important;
     opacity: 1 !important;
     clip-path: none !important;
-    background-color: rgba(128, 128, 128, 0.22) !important;
-    background-image: linear-gradient(
-      90deg,
-      var(--zpb-bar-colour),
-      var(--zpb-bar-colour)
-    ) !important;
-    background-size: calc(var(--zpb-p, 0.02) * 100%) 100% !important;
-    background-repeat: no-repeat !important;
-    background-position: left center !important;
+    /* darker track so it reads on white pages */
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    background-image:
+      linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.55) 50%,
+        transparent 100%
+      ),
+      linear-gradient(90deg, var(--zpb-bar-colour), var(--zpb-bar-colour)) !important;
+    background-size:
+      36% 100%,
+      calc(var(--zpb-p, 0.02) * 100%) 100% !important;
+    background-repeat: no-repeat, no-repeat !important;
+    background-position: -40% 0, left center !important;
     box-shadow:
-      inset 0 0 0 1px rgba(255, 255, 255, 0.06),
-      0 0 var(--zpb-glow-blur) color-mix(in srgb, var(--zpb-bar-colour) 40%, transparent) !important;
+      var(--zpb-rim),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35),
+      0 0 var(--zpb-glow-blur) color-mix(in srgb, var(--zpb-bar-colour) 45%, transparent) !important;
     overflow: hidden !important;
   }
 
   :root[zpb-active] #zpb-bar,
   :root[zpb-active="true"] #zpb-bar {
-    animation: none !important;
+    animation: zpb-soft-sheen 1.6s ease-in-out infinite !important;
   }
 }
 
 @media (-moz-pref("uc.zen-progress-bar.style", "soft")) and
   (-moz-pref("uc.zen-progress-bar.glow", false)) {
   #zpb-bar {
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06) !important;
+    box-shadow:
+      var(--zpb-rim),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
   }
 }
 
