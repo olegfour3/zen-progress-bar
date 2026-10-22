@@ -1,4 +1,4 @@
-/* Neon — glow + opacity/brightness pulse; dual rim for light pages. */
+/* Neon — glow + pulse; dual rim. Only when style=neon (no global white bleed). */
 
 @keyframes zpb-neon-pulse {
   from {
@@ -30,25 +30,6 @@
   :root[zpb-active="true"] #zpb-bar {
     animation: zpb-neon-pulse 1.1s ease-in-out infinite alternate !important;
   }
-}
-
-/* Default when style unset = neon */
-#zpb-bar {
-  height: var(--zpb-height) !important;
-  min-height: var(--zpb-height) !important;
-  max-height: var(--zpb-height) !important;
-  background-color: var(--zpb-bar-colour) !important;
-  background-image: none !important;
-  mix-blend-mode: normal !important;
-  box-shadow:
-    var(--zpb-rim),
-    0 0 var(--zpb-glow-blur) var(--zpb-bar-colour),
-    0 0 calc(var(--zpb-glow-blur) * 2.2) var(--zpb-bar-colour) !important;
-}
-
-:root[zpb-active] #zpb-bar,
-:root[zpb-active="true"] #zpb-bar {
-  animation: zpb-neon-pulse 1.1s ease-in-out infinite alternate !important;
 }
 
 @media (-moz-pref("uc.zen-progress-bar.style", "neon")) and

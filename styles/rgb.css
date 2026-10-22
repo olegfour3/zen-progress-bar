@@ -1,4 +1,4 @@
-/* RGB prism — cycling rainbow fill (replaces ink). */
+/* RGB prism — cycling rainbow; no white rim/underlay. */
 
 @keyframes zpb-rgb-shift {
   from {
@@ -6,6 +6,15 @@
   }
   to {
     filter: hue-rotate(360deg) saturate(1.35);
+  }
+}
+
+@keyframes zpb-rgb-slide {
+  from {
+    background-position: 0% 0;
+  }
+  to {
+    background-position: 100% 0;
   }
 }
 
@@ -19,7 +28,7 @@
     mix-blend-mode: normal !important;
     opacity: 1 !important;
     clip-path: none !important;
-    /* vivid base; hue-rotate cycles the spectrum */
+    /* kill any inherited white fill from neon defaults */
     background-color: transparent !important;
     background-image: linear-gradient(
       90deg,
@@ -32,8 +41,9 @@
     ) !important;
     background-size: 200% 100% !important;
     background-repeat: no-repeat !important;
+    /* dark hairline only — no white ring */
     box-shadow:
-      var(--zpb-rim),
+      0 0 0 1px rgba(0, 0, 0, 0.45),
       0 0 var(--zpb-glow-blur) #ff0040,
       0 0 calc(var(--zpb-glow-blur) * 1.4) #00b0ff !important;
     overflow: visible !important;
@@ -41,18 +51,10 @@
 
   :root[zpb-active] #zpb-bar,
   :root[zpb-active="true"] #zpb-bar {
+    /* slower prism cycle */
     animation:
-      zpb-rgb-shift 2.4s linear infinite,
-      zpb-rgb-slide 1.8s linear infinite !important;
-  }
-}
-
-@keyframes zpb-rgb-slide {
-  from {
-    background-position: 0% 0;
-  }
-  to {
-    background-position: 100% 0;
+      zpb-rgb-shift 4.5s linear infinite,
+      zpb-rgb-slide 3.2s linear infinite !important;
   }
 }
 
@@ -61,6 +63,6 @@
   (-moz-pref("uc.zen-progress-bar.style", "ink")) and
   (-moz-pref("uc.zen-progress-bar.glow", false)) {
   #zpb-bar {
-    box-shadow: var(--zpb-rim) !important;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45) !important;
   }
 }

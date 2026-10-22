@@ -39,8 +39,9 @@
       calc(var(--zpb-p, 0.02) * 100%) 100% !important;
     background-repeat: no-repeat, no-repeat !important;
     background-position: -40% 0, left center !important;
+    /* dark rim only — white fill already provides light edge; avoid white underlay */
     box-shadow:
-      var(--zpb-rim),
+      0 0 0 1px rgba(0, 0, 0, 0.35),
       inset 0 1px 0 rgba(255, 255, 255, 0.35),
       0 0 var(--zpb-glow-blur) color-mix(in srgb, var(--zpb-bar-colour) 45%, transparent) !important;
     overflow: hidden !important;
@@ -56,7 +57,7 @@
   (-moz-pref("uc.zen-progress-bar.glow", false)) {
   #zpb-bar {
     box-shadow:
-      var(--zpb-rim),
+      0 0 0 1px rgba(0, 0, 0, 0.35),
       inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
   }
 }
