@@ -29,8 +29,8 @@
     background-image:
       repeating-linear-gradient(
         90deg,
-        #06b025 0 9px,
-        #009a1a 9px 11px,
+        var(--zpb-bar-colour) 0 9px,
+        color-mix(in srgb, var(--zpb-bar-colour) 72%, #000) 9px 11px,
         transparent 11px 15px
       ),
       linear-gradient(

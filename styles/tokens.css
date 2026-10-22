@@ -1,4 +1,4 @@
-/* Shared appearance tokens for neon / line / soft / rgb (XP ignores these). */
+/* Shared appearance tokens for all styles. */
 
 :root {
   --zpb-height: 2px;
@@ -66,6 +66,76 @@
 @media (-moz-pref("uc.zen-progress-bar.color-mode", "custom")) {
   :root {
     --zpb-bar-colour: var(--uc-zen-progress-bar-color, #7aa2f7);
+  }
+}
+
+/* 10 preset colours */
+@media (-moz-pref("uc.zen-progress-bar.color-mode", "preset")) and
+  (-moz-pref("uc.zen-progress-bar.color-preset", "red")) {
+  :root {
+    --zpb-bar-colour: #ef4444;
+  }
+}
+@media (-moz-pref("uc.zen-progress-bar.color-mode", "preset")) and
+  (-moz-pref("uc.zen-progress-bar.color-preset", "orange")) {
+  :root {
+    --zpb-bar-colour: #f97316;
+  }
+}
+@media (-moz-pref("uc.zen-progress-bar.color-mode", "preset")) and
+  (-moz-pref("uc.zen-progress-bar.color-preset", "amber")) {
+  :root {
+    --zpb-bar-colour: #f59e0b;
+  }
+}
+@media (-moz-pref("uc.zen-progress-bar.color-mode", "preset")) and
+  (-moz-pref("uc.zen-progress-bar.color-preset", "yellow")) {
+  :root {
+    --zpb-bar-colour: #eab308;
+  }
+}
+@media (-moz-pref("uc.zen-progress-bar.color-mode", "preset")) and
+  (-moz-pref("uc.zen-progress-bar.color-preset", "green")) {
+  :root {
+    --zpb-bar-colour: #22c55e;
+  }
+}
+@media (-moz-pref("uc.zen-progress-bar.color-mode", "preset")) and
+  (-moz-pref("uc.zen-progress-bar.color-preset", "teal")) {
+  :root {
+    --zpb-bar-colour: #14b8a6;
+  }
+}
+@media (-moz-pref("uc.zen-progress-bar.color-mode", "preset")) and
+  (-moz-pref("uc.zen-progress-bar.color-preset", "blue")) {
+  :root {
+    --zpb-bar-colour: #3b82f6;
+  }
+}
+@media (-moz-pref("uc.zen-progress-bar.color-mode", "preset")) and
+  (-moz-pref("uc.zen-progress-bar.color-preset", "indigo")) {
+  :root {
+    --zpb-bar-colour: #6366f1;
+  }
+}
+@media (-moz-pref("uc.zen-progress-bar.color-mode", "preset")) and
+  (-moz-pref("uc.zen-progress-bar.color-preset", "violet")) {
+  :root {
+    --zpb-bar-colour: #a855f7;
+  }
+}
+@media (-moz-pref("uc.zen-progress-bar.color-mode", "preset")) and
+  (-moz-pref("uc.zen-progress-bar.color-preset", "pink")) {
+  :root {
+    --zpb-bar-colour: #ec4899;
+  }
+}
+
+/* XP + contrast: keep classic green chunks */
+@media (-moz-pref("uc.zen-progress-bar.style", "xp")) and
+  (-moz-pref("uc.zen-progress-bar.color-mode", "contrast")) {
+  :root {
+    --zpb-bar-colour: #06b025;
   }
 }
 

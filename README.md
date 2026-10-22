@@ -44,8 +44,9 @@ Available in the Sine mod preferences panel (`uc.zen-progress-bar.*`):
 | Enable progress bar | on | Master toggle |
 | Style | Neon | Neon / Windows XP / Minimal line / Soft track / RGB prism |
 | Bar height | 2px | Neon, Line, Soft, RGB — 1 / 2 / 3 / 4 px (not XP) |
-| Color mode | contrast | Neon, Line, Soft, RGB — contrast / Zen accent / custom |
-| Custom color | (custom mode) | Neon, Line, Soft, RGB — any CSS color |
+| Color mode | contrast | All styles — contrast / Zen accent / preset / custom |
+| Preset color | Blue | All styles — 10 colours when mode is Preset |
+| Custom color | (custom mode) | All styles — any CSS color |
 | Glow effect | on | Neon, Line, Soft, RGB |
 | Glow strength | medium | soft / medium / strong |
 | Position | top | All styles — top or bottom |

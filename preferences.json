@@ -104,6 +104,10 @@
         "value": "accent"
       },
       {
+        "label": "Preset",
+        "value": "preset"
+      },
+      {
         "label": "Custom",
         "value": "custom"
       }
@@ -113,6 +117,12 @@
         "if": {
           "property": "uc.zen-progress-bar.style",
           "value": "neon"
+        }
+      },
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.style",
+          "value": "xp"
         }
       },
       {
@@ -136,6 +146,98 @@
     ]
   },
   {
+    "type": "dropdown",
+    "property": "uc.zen-progress-bar.color-preset",
+    "label": "Preset color",
+    "defaultValue": "blue",
+    "operator": "AND",
+    "options": [
+      {
+        "label": "Red",
+        "value": "red"
+      },
+      {
+        "label": "Orange",
+        "value": "orange"
+      },
+      {
+        "label": "Amber",
+        "value": "amber"
+      },
+      {
+        "label": "Yellow",
+        "value": "yellow"
+      },
+      {
+        "label": "Green",
+        "value": "green"
+      },
+      {
+        "label": "Teal",
+        "value": "teal"
+      },
+      {
+        "label": "Blue",
+        "value": "blue"
+      },
+      {
+        "label": "Indigo",
+        "value": "indigo"
+      },
+      {
+        "label": "Violet",
+        "value": "violet"
+      },
+      {
+        "label": "Pink",
+        "value": "pink"
+      }
+    ],
+    "conditions": [
+      {
+        "operator": "OR",
+        "conditions": [
+          {
+            "if": {
+              "property": "uc.zen-progress-bar.style",
+              "value": "neon"
+            }
+          },
+          {
+            "if": {
+              "property": "uc.zen-progress-bar.style",
+              "value": "xp"
+            }
+          },
+          {
+            "if": {
+              "property": "uc.zen-progress-bar.style",
+              "value": "line"
+            }
+          },
+          {
+            "if": {
+              "property": "uc.zen-progress-bar.style",
+              "value": "soft"
+            }
+          },
+          {
+            "if": {
+              "property": "uc.zen-progress-bar.style",
+              "value": "rgb"
+            }
+          }
+        ]
+      },
+      {
+        "if": {
+          "property": "uc.zen-progress-bar.color-mode",
+          "value": "preset"
+        }
+      }
+    ]
+  },
+  {
     "type": "string",
     "property": "uc.zen-progress-bar.color",
     "label": "Custom color (CSS)",
@@ -150,6 +252,12 @@
             "if": {
               "property": "uc.zen-progress-bar.style",
               "value": "neon"
+            }
+          },
+          {
+            "if": {
+              "property": "uc.zen-progress-bar.style",
+              "value": "xp"
             }
           },
           {
