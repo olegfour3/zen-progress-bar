@@ -1,19 +1,19 @@
-/* Zen Progress Bar — full-width tab load indicator for Zen + Sine Mods
+/* Zen Progress Bar — full-width load indicator for Zen + Sine Mods
  *
- * Sine loads this as a USER_SHEET (chrome://sine/…). Do NOT wrap in
- * @-moz-document — that blocks the sheet under Sine (other CSS-only Sine
- * mods omit it). Paint on .browserStack so themes like Zia that style
- * .browserSidebarContainer / #urlbar do not own this pseudo-element.
+ * Zen already injects #zen-loading-progress-bar while a tab loads.
+ * Themes like Zia hide it (`display: none !important` on that id).
+ * We re-show it with higher specificity and restyle as a thin full-width
+ * glow bar — no need to disable Zia or any other mod.
+ *
+ * Sine loads this as USER_SHEET — do not wrap in @-moz-document.
  */
 
 :root {
   --zpb-height: 2px;
   --zpb-glow-blur: 6px;
-  --zpb-bar-pcent: 0%;
   --zpb-bar-colour: var(--uc-zen-progress-bar-color, var(--zen-primary-color, #7aa2f7));
 }
 
-/* Height */
 @media (-moz-pref("uc.zen-progress-bar.height", "1")) {
   :root {
     --zpb-height: 1px;
@@ -35,7 +35,6 @@
   }
 }
 
-/* Glow strength */
 @media (-moz-pref("uc.zen-progress-bar.glow-strength", "soft")) {
   :root {
     --zpb-glow-blur: 3px;
@@ -52,98 +51,137 @@
   }
 }
 
-/* Load stages (busy → pendingicon → progress) */
-:root:has(.tabbrowser-tab[selected][busy]) {
-  --zpb-bar-colour: var(--uc-zen-progress-bar-color, var(--zen-primary-color, #7aa2f7));
-  --zpb-bar-pcent: 15%;
-}
-:root:has(.tabbrowser-tab[selected][busy][pendingicon]) {
-  --zpb-bar-colour: var(--uc-zen-progress-bar-color, var(--zen-primary-color, #7aa2f7));
-  --zpb-bar-pcent: 45%;
-}
-:root:has(.tabbrowser-tab[selected][busy][pendingicon][progress]) {
-  --zpb-bar-colour: var(--uc-zen-progress-bar-color, var(--zen-primary-color, #7aa2f7));
-  --zpb-bar-pcent: 85%;
-}
-:root:has(.tabbrowser-tab[selected][busy][progress]) {
-  --zpb-bar-colour: var(--uc-zen-progress-bar-color, var(--zen-primary-color, #7aa2f7));
-  --zpb-bar-pcent: 95%;
-}
-
-/* Host must be a containing block for the absolute bar */
-.browserSidebarContainer.deck-selected .browserStack {
+/* Containing block for the absolute bar */
+.browserSidebarContainer.deck-selected {
   position: relative !important;
 }
 
-.browserSidebarContainer.deck-selected .browserStack::before {
-  content: "" !important;
+/*
+ * Beat Zia’s `#zen-loading-progress-bar { display: none !important }`
+ * (one ID) with two IDs. Also override Zen’s pill geometry / pulse.
+ */
+#main-window #zen-loading-progress-bar,
+:root #tabbrowser-tabpanels #zen-loading-progress-bar {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+
   position: absolute !important;
   top: 0 !important;
+  right: auto !important;
   bottom: auto !important;
   left: 0 !important;
+
+  width: 100% !important;
+  max-width: none !important;
   height: var(--zpb-height) !important;
-  max-width: 100% !important;
-  width: var(--zpb-bar-pcent) !important;
-  background-color: var(--zpb-bar-colour) !important;
-  filter: drop-shadow(0 0 var(--zpb-glow-blur) var(--zpb-bar-colour)) !important;
-  border-radius: 0 var(--zpb-height) var(--zpb-height) 0 !important;
+  min-height: var(--zpb-height) !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+
+  background: var(--zpb-bar-colour) !important;
+  box-shadow: 0 0 var(--zpb-glow-blur) var(--zpb-bar-colour) !important;
+  filter: none !important;
+
+  transform: none !important;
+  transform-origin: left center !important;
+  animation: zpb-sweep 1.1s ease-in-out infinite !important;
+
   z-index: 2147483646 !important;
+  overflow: visible !important;
+  contain: none !important;
   pointer-events: none !important;
+}
+
+/* Growing sweep across the full content width */
+@keyframes zpb-sweep {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.55;
+  }
+  50% {
+    clip-path: inset(0 15% 0 0);
+    opacity: 1;
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 0.85;
+  }
+}
+
+/* Long-load: keep bar full-width, soft shimmer via ::before */
+#main-window #zen-loading-progress-bar[long-load="true"],
+:root #tabbrowser-tabpanels #zen-loading-progress-bar[long-load="true"] {
+  clip-path: none !important;
+  animation: none !important;
   opacity: 1 !important;
-  transition:
-    width 0.45s ease-in-out,
-    top 0.1s ease-in-out,
-    bottom 0.1s ease-in-out,
-    opacity 0.2s ease-in-out,
-    background 0.2s ease !important;
 }
 
-/* Idle: keep node, hide visually */
-:root:not(:has(.tabbrowser-tab[selected][busy]))
-  .browserSidebarContainer.deck-selected
-  .browserStack::before {
-  opacity: 0 !important;
-  width: 0 !important;
+#main-window #zen-loading-progress-bar[long-load="true"]::before,
+:root #tabbrowser-tabpanels #zen-loading-progress-bar[long-load="true"]::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  inset: 0 auto 0 0 !important;
+  width: 35% !important;
+  height: 100% !important;
+  border-radius: inherit !important;
+  background: color-mix(in srgb, var(--zpb-bar-colour) 40%, white) !important;
+  animation: zpb-shimmer 1.2s ease-in-out infinite !important;
+  opacity: 1 !important;
+  filter: none !important;
 }
 
-/* enabled default true — hide only when explicitly false */
+@keyframes zpb-shimmer {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+/* Prefs */
 @media (-moz-pref("uc.zen-progress-bar.enabled", false)) {
-  .browserSidebarContainer.deck-selected .browserStack::before {
-    content: none !important;
-    width: 0 !important;
-    opacity: 0 !important;
+  #main-window #zen-loading-progress-bar,
+  :root #tabbrowser-tabpanels #zen-loading-progress-bar {
+    display: none !important;
   }
 }
 
 @media (-moz-pref("uc.zen-progress-bar.glow", false)) {
-  .browserSidebarContainer.deck-selected .browserStack::before {
-    filter: none !important;
+  #main-window #zen-loading-progress-bar,
+  :root #tabbrowser-tabpanels #zen-loading-progress-bar {
+    box-shadow: none !important;
   }
 }
 
 @media (-moz-pref("uc.zen-progress-bar.rounded", false)) {
-  .browserSidebarContainer.deck-selected .browserStack::before {
+  #main-window #zen-loading-progress-bar,
+  :root #tabbrowser-tabpanels #zen-loading-progress-bar {
     border-radius: 0 !important;
   }
 }
 
+@media (-moz-pref("uc.zen-progress-bar.rounded", true)) {
+  #main-window #zen-loading-progress-bar,
+  :root #tabbrowser-tabpanels #zen-loading-progress-bar {
+    border-radius: 0 var(--zpb-height) var(--zpb-height) 0 !important;
+  }
+}
+
 @media (-moz-pref("uc.zen-progress-bar.position", "bottom")) {
-  .browserSidebarContainer.deck-selected .browserStack::before {
+  #main-window #zen-loading-progress-bar,
+  :root #tabbrowser-tabpanels #zen-loading-progress-bar {
     top: auto !important;
     bottom: 0 !important;
   }
 }
 
-/* Zen Glance */
-.browserSidebarContainer.deck-selected:has([zen-glance-selected]) .browserStack::before,
-.browserSidebarContainer.deck-selected.zen-glance-overlay .browserStack::before {
-  max-width: 85% !important;
-  left: 7.5% !important;
-  border-radius: 6px !important;
-}
-
-.browserSidebarContainer.deck-selected.zen-glance-background .browserStack::before {
-  background: transparent !important;
-  height: 0 !important;
-  opacity: 0 !important;
+/* Glance: don’t leave a bar on the background pane */
+.browserSidebarContainer.zen-glance-background > #zen-loading-progress-bar {
+  display: none !important;
 }
