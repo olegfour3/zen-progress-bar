@@ -17,7 +17,7 @@
     "options": [
       { "label": "Neon (default)", "value": "neon" },
       { "label": "Windows XP", "value": "xp" },
-      { "label": "Tahoe glass", "value": "tahoe" }
+      { "label": "Glass aurora", "value": "tahoe" }
     ]
   },
   {

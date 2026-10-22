@@ -4,7 +4,7 @@ Full-width loading bar for [Zen Browser](https://zen-browser.app/), installed vi
 
 Inserts `#zpb-bar` into the selected `.browserSidebarContainer` and toggles `:root[zpb-active]` from Zia’s `zia-loading`, tab `busy`/`progress`, and top-level window load state. Works when Zia hides Zen’s native pill.
 
-**Styles:** Neon (glow + continuous pulse), Windows XP copy chunks, Tahoe glass edge — each in `styles/*.css`, pulled via `@import` from `chrome.css`.  
+**Styles:** Neon (white stays white — dark edge, no `mix-blend`), Windows XP (fixed green blocks revealed by clip), Glass aurora (indigo→violet fill on frosted track) — each in `styles/*.css`, `@import`ed from `chrome.css`.  
 **Progress:** Zia-like smooth bar (`shown` → `target` with estimate creep). Bytes from `onProgressChange` only push the target up (capped at 95%); finish eases to 100% then hides.
 
 ## Install (Sine)
@@ -35,7 +35,7 @@ Available in the Sine mod preferences panel (`uc.zen-progress-bar.*`):
 | Setting | Default | Notes |
 |--------|---------|--------|
 | Enable progress bar | on | Master toggle |
-| Style | Neon | Neon / Windows XP / Tahoe glass |
+| Style | Neon | Neon / Windows XP / Glass aurora |
 | Bar height | 2px | Neon only — 1 / 2 / 3 / 4 px |
 | Color mode | contrast | Neon only — contrast vs page / Zen accent / custom |
 | Custom color | (custom mode) | Neon only — any CSS color |
