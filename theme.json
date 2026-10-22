@@ -2,7 +2,7 @@
   "id": "zen-progress-bar",
   "name": "Zen Progress Bar",
   "description": "Full-width thin loading bar with glow for Zen Browser",
-  "homepage": "https://github.com/oleg/zen-progress-bar",
+  "homepage": "https://github.com/olegfour3/zen-progress-bar",
   "style": {
     "chrome": "chrome.css"
   },
