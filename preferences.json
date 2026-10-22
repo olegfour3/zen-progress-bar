@@ -1,0 +1,67 @@
+[
+  {
+    "type": "separator",
+    "label": "Appearance"
+  },
+  {
+    "type": "checkbox",
+    "property": "uc.zen-progress-bar.enabled",
+    "label": "Enable progress bar",
+    "defaultValue": true
+  },
+  {
+    "type": "dropdown",
+    "property": "uc.zen-progress-bar.height",
+    "label": "Bar height",
+    "defaultValue": "2",
+    "options": [
+      { "label": "1px (hairline)", "value": "1" },
+      { "label": "2px (default)", "value": "2" },
+      { "label": "3px", "value": "3" },
+      { "label": "4px", "value": "4" }
+    ]
+  },
+  {
+    "type": "string",
+    "property": "uc.zen-progress-bar.color",
+    "label": "Custom color (CSS). Leave empty for Zen accent.",
+    "border": "value",
+    "placeholder": "#7aa2f7"
+  },
+  {
+    "type": "checkbox",
+    "property": "uc.zen-progress-bar.glow",
+    "label": "Glow effect",
+    "defaultValue": true
+  },
+  {
+    "type": "dropdown",
+    "property": "uc.zen-progress-bar.glow-strength",
+    "label": "Glow strength",
+    "defaultValue": "medium",
+    "options": [
+      { "label": "Soft", "value": "soft" },
+      { "label": "Medium (default)", "value": "medium" },
+      { "label": "Strong", "value": "strong" }
+    ],
+    "conditions": [
+      { "if": { "property": "uc.zen-progress-bar.glow", "value": true } }
+    ]
+  },
+  {
+    "type": "dropdown",
+    "property": "uc.zen-progress-bar.position",
+    "label": "Position",
+    "defaultValue": "top",
+    "options": [
+      { "label": "Top", "value": "top" },
+      { "label": "Bottom", "value": "bottom" }
+    ]
+  },
+  {
+    "type": "checkbox",
+    "property": "uc.zen-progress-bar.rounded",
+    "label": "Rounded leading edge",
+    "defaultValue": true
+  }
+]

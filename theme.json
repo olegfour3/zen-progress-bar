@@ -1,0 +1,18 @@
+{
+  "id": "zen-progress-bar",
+  "name": "Zen Progress Bar",
+  "description": "Full-width thin loading bar with glow for Zen Browser",
+  "homepage": "https://github.com/oleg/zen-progress-bar",
+  "style": {
+    "chrome": "chrome.css"
+  },
+  "preferences": "preferences.json",
+  "readme": "README.md",
+  "image": "preview.png",
+  "author": "oleg",
+  "version": "1.0.0",
+  "tags": ["loadbar", "progress", "zen", "glow"],
+  "fork": ["zen"],
+  "createdAt": "2026-10-22",
+  "updatedAt": "2026-10-22"
+}
