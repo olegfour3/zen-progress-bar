@@ -10,7 +10,7 @@
   "readme": "README.md",
   "image": "preview.png",
   "author": "oleg",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "tags": ["loadbar", "progress", "zen", "glow"],
   "fork": ["zen"],
   "createdAt": "2026-10-22",

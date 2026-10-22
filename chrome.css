@@ -1,179 +1,149 @@
-/* Zen Progress Bar — full-width tab load indicator for Zen + Sine Mods */
+/* Zen Progress Bar — full-width tab load indicator for Zen + Sine Mods
+ *
+ * Sine loads this as a USER_SHEET (chrome://sine/…). Do NOT wrap in
+ * @-moz-document — that blocks the sheet under Sine (other CSS-only Sine
+ * mods omit it). Paint on .browserStack so themes like Zia that style
+ * .browserSidebarContainer / #urlbar do not own this pseudo-element.
+ */
 
-@-moz-document url-prefix("chrome:") {
+:root {
+  --zpb-height: 2px;
+  --zpb-glow-blur: 6px;
+  --zpb-bar-pcent: 0%;
+  --zpb-bar-colour: var(--uc-zen-progress-bar-color, var(--zen-primary-color, #7aa2f7));
+}
+
+/* Height */
+@media (-moz-pref("uc.zen-progress-bar.height", "1")) {
+  :root {
+    --zpb-height: 1px;
+  }
+}
+@media (-moz-pref("uc.zen-progress-bar.height", "2")) {
   :root {
     --zpb-height: 2px;
-    --zpb-glow-blur: 6px;
-    --bar-pcent: 0%;
-    --bar-colour: var(--uc-zen-progress-bar-color, var(--zen-primary-color));
   }
-
-  /* Height */
-  @media (-moz-pref("uc.zen-progress-bar.height", "1")) {
-    :root {
-      --zpb-height: 1px;
-    }
-  }
-  @media (-moz-pref("uc.zen-progress-bar.height", "2")) {
-    :root {
-      --zpb-height: 2px;
-    }
-  }
-  @media (-moz-pref("uc.zen-progress-bar.height", "3")) {
-    :root {
-      --zpb-height: 3px;
-    }
-  }
-  @media (-moz-pref("uc.zen-progress-bar.height", "4")) {
-    :root {
-      --zpb-height: 4px;
-    }
-  }
-
-  /* Glow strength (used when glow is on) */
-  @media (-moz-pref("uc.zen-progress-bar.glow-strength", "soft")) {
-    :root {
-      --zpb-glow-blur: 3px;
-    }
-  }
-  @media (-moz-pref("uc.zen-progress-bar.glow-strength", "medium")) {
-    :root {
-      --zpb-glow-blur: 6px;
-    }
-  }
-  @media (-moz-pref("uc.zen-progress-bar.glow-strength", "strong")) {
-    :root {
-      --zpb-glow-blur: 12px;
-    }
-  }
-
-  /* Load stages (busy → pendingicon → progress) */
+}
+@media (-moz-pref("uc.zen-progress-bar.height", "3")) {
   :root {
-    &:has(.tabbrowser-tab[selected][busy]) {
-      --bar-colour: var(--uc-zen-progress-bar-color, var(--zen-primary-color));
-      --bar-pcent: 15%;
-    }
-    &:has(.tabbrowser-tab[selected][busy][pendingicon]) {
-      --bar-colour: var(--uc-zen-progress-bar-color, var(--zen-primary-color));
-      --bar-pcent: 45%;
-    }
-    &:has(.tabbrowser-tab[selected][busy][pendingicon][progress]) {
-      --bar-colour: var(--uc-zen-progress-bar-color, var(--zen-primary-color));
-      --bar-pcent: 85%;
-    }
-    &:has(.tabbrowser-tab[selected][busy][progress]) {
-      --bar-colour: var(--uc-zen-progress-bar-color, var(--zen-primary-color));
-      --bar-pcent: 95%;
-    }
+    --zpb-height: 3px;
   }
-
-  .browserSidebarContainer.deck-selected::before {
-    content: "" !important;
-    position: absolute !important;
-    top: 0 !important;
-    bottom: auto !important;
-    left: 0 !important;
-    height: var(--zpb-height) !important;
-    max-width: 100% !important;
-    width: var(--bar-pcent) !important;
-    background-color: var(--bar-colour) !important;
-    /* default: thin bar + glow */
-    filter: drop-shadow(0 0 var(--zpb-glow-blur) var(--bar-colour)) !important;
-    border-radius: 0 var(--zpb-height) var(--zpb-height) 0 !important;
-    z-index: 1 !important;
-    pointer-events: none !important;
-    transition:
-      width 0.5s ease-in-out,
-      top 0.1s ease-in-out,
-      bottom 0.1s ease-in-out,
-      opacity 0.2s ease-in-out,
-      background 0.2s ease !important;
+}
+@media (-moz-pref("uc.zen-progress-bar.height", "4")) {
+  :root {
+    --zpb-height: 4px;
   }
+}
 
-  /* Hide when idle (no busy) — width stays 0% via --bar-pcent */
-  :root:not(:has(.tabbrowser-tab[selected][busy])) {
-    .browserSidebarContainer.deck-selected::before {
-      opacity: 0 !important;
-    }
+/* Glow strength */
+@media (-moz-pref("uc.zen-progress-bar.glow-strength", "soft")) {
+  :root {
+    --zpb-glow-blur: 3px;
   }
-
-  /* enabled default true: hide only when explicitly false */
-  @media (-moz-pref("uc.zen-progress-bar.enabled", false)) {
-    .browserSidebarContainer.deck-selected::before {
-      content: none !important;
-      width: 0 !important;
-      opacity: 0 !important;
-    }
+}
+@media (-moz-pref("uc.zen-progress-bar.glow-strength", "medium")) {
+  :root {
+    --zpb-glow-blur: 6px;
   }
-
-  /* glow default true: strip filter when explicitly false */
-  @media (-moz-pref("uc.zen-progress-bar.glow", false)) {
-    .browserSidebarContainer.deck-selected::before {
-      filter: none !important;
-    }
+}
+@media (-moz-pref("uc.zen-progress-bar.glow-strength", "strong")) {
+  :root {
+    --zpb-glow-blur: 12px;
   }
+}
 
-  /* rounded default true */
-  @media (-moz-pref("uc.zen-progress-bar.rounded", false)) {
-    .browserSidebarContainer.deck-selected::before {
-      border-radius: 0 !important;
-    }
-  }
+/* Load stages (busy → pendingicon → progress) */
+:root:has(.tabbrowser-tab[selected][busy]) {
+  --zpb-bar-colour: var(--uc-zen-progress-bar-color, var(--zen-primary-color, #7aa2f7));
+  --zpb-bar-pcent: 15%;
+}
+:root:has(.tabbrowser-tab[selected][busy][pendingicon]) {
+  --zpb-bar-colour: var(--uc-zen-progress-bar-color, var(--zen-primary-color, #7aa2f7));
+  --zpb-bar-pcent: 45%;
+}
+:root:has(.tabbrowser-tab[selected][busy][pendingicon][progress]) {
+  --zpb-bar-colour: var(--uc-zen-progress-bar-color, var(--zen-primary-color, #7aa2f7));
+  --zpb-bar-pcent: 85%;
+}
+:root:has(.tabbrowser-tab[selected][busy][progress]) {
+  --zpb-bar-colour: var(--uc-zen-progress-bar-color, var(--zen-primary-color, #7aa2f7));
+  --zpb-bar-pcent: 95%;
+}
 
-  /* Position: bottom */
-  @media (-moz-pref("uc.zen-progress-bar.position", "bottom")) {
-    .browserSidebarContainer.deck-selected::before {
-      top: auto !important;
-      bottom: 0 !important;
-    }
-  }
+/* Host must be a containing block for the absolute bar */
+.browserSidebarContainer.deck-selected .browserStack {
+  position: relative !important;
+}
 
-  /* Dual toolbar: sit under the top navbar */
-  @media not (-moz-bool-pref: "zen.view.compact.hide-toolbar") and not (-moz-bool-pref: "zen.view.use-single-toolbar") {
-    @media not (-moz-pref("uc.zen-progress-bar.position", "bottom")) {
-      .browserSidebarContainer.deck-selected::before {
-        top: 40px !important;
-      }
-    }
-  }
+.browserSidebarContainer.deck-selected .browserStack::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  bottom: auto !important;
+  left: 0 !important;
+  height: var(--zpb-height) !important;
+  max-width: 100% !important;
+  width: var(--zpb-bar-pcent) !important;
+  background-color: var(--zpb-bar-colour) !important;
+  filter: drop-shadow(0 0 var(--zpb-glow-blur) var(--zpb-bar-colour)) !important;
+  border-radius: 0 var(--zpb-height) var(--zpb-height) 0 !important;
+  z-index: 2147483646 !important;
+  pointer-events: none !important;
+  opacity: 1 !important;
+  transition:
+    width 0.45s ease-in-out,
+    top 0.1s ease-in-out,
+    bottom 0.1s ease-in-out,
+    opacity 0.2s ease-in-out,
+    background 0.2s ease !important;
+}
 
-  /* Zen Glance overlay */
-  .browserSidebarContainer.deck-selected:has([zen-glance-selected])::before,
-  .browserSidebarContainer.deck-selected.zen-glance-overlay::before {
-    max-width: 85% !important;
-    left: 7.5% !important;
-    border-radius: 6px !important;
-  }
+/* Idle: keep node, hide visually */
+:root:not(:has(.tabbrowser-tab[selected][busy]))
+  .browserSidebarContainer.deck-selected
+  .browserStack::before {
+  opacity: 0 !important;
+  width: 0 !important;
+}
 
-  .browserSidebarContainer.deck-selected.zen-glance-background::before {
-    background: transparent !important;
-    height: 0 !important;
+/* enabled default true — hide only when explicitly false */
+@media (-moz-pref("uc.zen-progress-bar.enabled", false)) {
+  .browserSidebarContainer.deck-selected .browserStack::before {
+    content: none !important;
+    width: 0 !important;
     opacity: 0 !important;
   }
+}
 
-  /*
-    Compact mode (not single-toolbar): move bar under toolbar when it is shown.
-    Selectors mirror zen-compact-mode.css hover/show states.
-  */
-  @media (-moz-bool-pref: "zen.view.compact.hide-toolbar") {
-    @media not (-moz-pref("uc.zen-progress-bar.position", "bottom")) {
-      :root:not([zen-single-toolbar="true"]):has([zen-compact-mode="true"]) {
-        &:has(#zen-appcontent-navbar-wrapper[zen-has-hover]),
-        &:has(#zen-appcontent-navbar-wrapper[zen-user-show]),
-        &:has(#zen-appcontent-navbar-wrapper[has-popup-menu]),
-        &:has(
-          *:is(
-              #zen-appcontent-navbar-wrapper[panelopen="true"],
-              #zen-appcontent-navbar-wrapper[open="true"],
-              #urlbar:focus-within:not(#urlbar[zen-floating-urlbar="true"]),
-              #zen-appcontent-navbar-wrapper[breakout-extend="true"]
-            ):not(.zen-compact-mode-ignore)
-        ) {
-          .browserSidebarContainer.deck-selected::before {
-            top: 39px !important;
-          }
-        }
-      }
-    }
+@media (-moz-pref("uc.zen-progress-bar.glow", false)) {
+  .browserSidebarContainer.deck-selected .browserStack::before {
+    filter: none !important;
   }
+}
+
+@media (-moz-pref("uc.zen-progress-bar.rounded", false)) {
+  .browserSidebarContainer.deck-selected .browserStack::before {
+    border-radius: 0 !important;
+  }
+}
+
+@media (-moz-pref("uc.zen-progress-bar.position", "bottom")) {
+  .browserSidebarContainer.deck-selected .browserStack::before {
+    top: auto !important;
+    bottom: 0 !important;
+  }
+}
+
+/* Zen Glance */
+.browserSidebarContainer.deck-selected:has([zen-glance-selected]) .browserStack::before,
+.browserSidebarContainer.deck-selected.zen-glance-overlay .browserStack::before {
+  max-width: 85% !important;
+  left: 7.5% !important;
+  border-radius: 6px !important;
+}
+
+.browserSidebarContainer.deck-selected.zen-glance-background .browserStack::before {
+  background: transparent !important;
+  height: 0 !important;
+  opacity: 0 !important;
 }

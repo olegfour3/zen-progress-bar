@@ -8,13 +8,13 @@ While a tab is loading, a 2px accent-colored bar grows across the content area (
 
 1. Install [Sine](https://github.com/CosmoCreeper/Sine) for Zen Browser if you do not have it yet.
 2. Open **Settings → Sine mods**.
-3. Under *add your own locally from a GitHub repo*, paste this repository URL and click **Add**.
+3. Enter `olegfour3/zen-progress-bar` and click **Install**.
 4. Enable **Zen Progress Bar** and restart Zen if styles do not apply immediately.
 
 ### Manual fallback
 
 1. Copy this folder into your profile: `chrome/sine-mods/zen-progress-bar/`.
-2. Register the mod in Sine / `mods.json` (or re-add via the GitHub URL flow).
+2. Register the mod in Sine / `mods.json` (or install again via `owner/repo`).
 3. Restart Zen / clear startup cache via `about:support` if needed.
 
 ## Settings
@@ -33,7 +33,7 @@ Available in the Sine mod preferences panel (`uc.zen-progress-bar.*`):
 
 ## Acceptance checklist
 
-- [ ] Mod appears after adding the GitHub repo URL in Sine
+- [ ] Mod appears after installing `olegfour3/zen-progress-bar` in Sine
 - [ ] Navigating to a page shows a thin glowing bar across the content width
 - [ ] Changing height / color / glow in Sine prefs updates the bar without editing files
 - [ ] Dual-toolbar / compact / single-toolbar layouts keep the bar under (or clear of) the navbar
@@ -41,8 +41,9 @@ Available in the Sine mod preferences panel (`uc.zen-progress-bar.*`):
 
 ## Compatibility notes
 
-- **Other loadbars:** Mods such as Blended Addressbar’s loadbar also paint `::before` on `.browserSidebarContainer`. Disable the other loadbar to avoid conflicts.
-- **Zen updates:** Chrome selectors can change after major Zen releases; re-check the bar position if it jumps.
+- **Works with Zia and similar themes.** The bar paints on `.browserStack::before` (not the container / urlbar that Zia owns). Nothing else needs to be disabled.
+- **Sine:** CSS must not be wrapped in `@-moz-document` — Sine injects chrome sheets itself.
+- **Zen updates:** Chrome selectors can change after major Zen releases; re-check the bar if it jumps.
 - **Progress accuracy:** Stages are discrete (attribute-based), not byte-accurate download percent.
 
 ## License
