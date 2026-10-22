@@ -1,11 +1,11 @@
-/* Zen Progress Bar — styles for #zpb-bar (created by zen-progress-bar.uc.js).
- * Zia hides Zen’s #zen-loading-progress-bar; we use our own element instead.
- */
+/* Zen Progress Bar — styles for #zpb-bar (created by zen-progress-bar.uc.js). */
 
 :root {
   --zpb-height: 2px;
   --zpb-glow-blur: 6px;
-  --zpb-bar-colour: var(--uc-zen-progress-bar-color, var(--zen-primary-color, #7aa2f7));
+  /* contrast default: white + difference → always readable on page chrome */
+  --zpb-bar-colour: #ffffff;
+  --zpb-blend: difference;
 }
 
 @media (-moz-pref("uc.zen-progress-bar.height", "1")) {
@@ -45,6 +45,27 @@
   }
 }
 
+@media (-moz-pref("uc.zen-progress-bar.color-mode", "contrast")) {
+  :root {
+    --zpb-bar-colour: #ffffff;
+    --zpb-blend: difference;
+  }
+}
+
+@media (-moz-pref("uc.zen-progress-bar.color-mode", "accent")) {
+  :root {
+    --zpb-bar-colour: var(--zen-primary-color, #7aa2f7);
+    --zpb-blend: normal;
+  }
+}
+
+@media (-moz-pref("uc.zen-progress-bar.color-mode", "custom")) {
+  :root {
+    --zpb-bar-colour: var(--uc-zen-progress-bar-color, #7aa2f7);
+    --zpb-blend: normal;
+  }
+}
+
 #zpb-bar {
   position: absolute !important;
   top: 0 !important;
@@ -61,6 +82,7 @@
   border-radius: 0 !important;
   background-color: var(--zpb-bar-colour) !important;
   box-shadow: 0 0 var(--zpb-glow-blur) var(--zpb-bar-colour) !important;
+  mix-blend-mode: var(--zpb-blend) !important;
   z-index: 2147483646 !important;
   pointer-events: none !important;
   display: none !important;
@@ -72,13 +94,14 @@
 :root[zpb-active] #zpb-bar,
 :root[zpb-active="true"] #zpb-bar {
   display: flex !important;
-  animation: zpb-grow 1.15s ease-out infinite alternate !important;
+  /* easing from zen-deta-loading-bar */
+  animation: zpb-grow 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate !important;
 }
 
 @keyframes zpb-grow {
   from {
     transform: scaleX(0.2);
-    opacity: 0.9;
+    opacity: 0.85;
   }
   to {
     transform: scaleX(1);

@@ -1,7 +1,7 @@
 {
   "id": "zen-progress-bar",
   "name": "Zen Progress Bar",
-  "description": "Full-width glow load bar (needs sine.allow-unsafe-js for GitHub install)",
+  "description": "Full-width glow load bar; contrast blend vs page (Zia-safe)",
   "homepage": "https://github.com/olegfour3/zen-progress-bar",
   "style": {
     "chrome": "chrome.css"
@@ -17,7 +17,7 @@
   "readme": "README.md",
   "image": "preview.png",
   "author": "oleg",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "tags": [
     "loadbar",
     "progress",
@@ -28,5 +28,5 @@
     "zen"
   ],
   "createdAt": "2026-10-22",
-  "updatedAt": "2026-10-22T21:37:04.000Z"
+  "updatedAt": "2026-10-22T21:41:49.000Z"
 }

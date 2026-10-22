@@ -22,11 +22,25 @@
     ]
   },
   {
+    "type": "dropdown",
+    "property": "uc.zen-progress-bar.color-mode",
+    "label": "Color mode",
+    "defaultValue": "contrast",
+    "options": [
+      { "label": "Contrast vs page (default)", "value": "contrast" },
+      { "label": "Zen accent", "value": "accent" },
+      { "label": "Custom", "value": "custom" }
+    ]
+  },
+  {
     "type": "string",
     "property": "uc.zen-progress-bar.color",
-    "label": "Custom color (CSS). Leave empty for Zen accent.",
+    "label": "Custom color (CSS)",
     "border": "value",
-    "placeholder": "#7aa2f7"
+    "placeholder": "#7aa2f7",
+    "conditions": [
+      { "if": { "property": "uc.zen-progress-bar.color-mode", "value": "custom" } }
+    ]
   },
   {
     "type": "checkbox",

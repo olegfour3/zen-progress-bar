@@ -33,7 +33,8 @@ Available in the Sine mod preferences panel (`uc.zen-progress-bar.*`):
 |--------|---------|--------|
 | Enable progress bar | on | Master toggle |
 | Bar height | 2px | 1 / 2 / 3 / 4 px |
-| Custom color | empty | Any CSS color; empty → `--zen-primary-color` |
+| Color mode | contrast | Contrast vs page / Zen accent / custom |
+| Custom color | (custom mode) | Any CSS color |
 | Glow effect | on | Soft drop-shadow using the bar color |
 | Glow strength | medium | soft / medium / strong |
 | Position | top | top or bottom of the content area |
