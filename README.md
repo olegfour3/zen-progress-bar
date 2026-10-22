@@ -9,7 +9,14 @@ While a tab is loading, a 2px accent-colored bar grows across the content area (
 1. Install [Sine](https://github.com/CosmoCreeper/Sine) for Zen Browser if you do not have it yet.
 2. Open **Settings → Sine mods**.
 3. Enter `olegfour3/zen-progress-bar` and click **Install**.
-4. Enable **Zen Progress Bar** and restart Zen if styles do not apply immediately.
+4. Enable **Zen Progress Bar**, then **restart Zen** (or toggle the mod off/on) so the chrome sheet reloads.
+
+### Updates
+
+Sine decides “is there an update?” by comparing **`updatedAt`** in `theme.json` (not `version`). On every release we bump both `version` and `updatedAt` (ISO timestamp).
+
+- If **Auto-update mods** is off (`sine.auto-updates`), click **Check for updates** / manual update in Sine.
+- After an update, restart Zen (or toggle the mod) so CSS applies.
 
 ### Manual fallback
 
@@ -43,6 +50,7 @@ Available in the Sine mod preferences panel (`uc.zen-progress-bar.*`):
 
 - **Works with Zia and similar themes.** The bar paints on `.browserStack::before` (not the container / urlbar that Zia owns). Nothing else needs to be disabled.
 - **Sine:** CSS must not be wrapped in `@-moz-document` — Sine injects chrome sheets itself.
+- **Sine updates:** detection uses `updatedAt` (strictly newer ISO date); `version` is for humans / display.
 - **Zen updates:** Chrome selectors can change after major Zen releases; re-check the bar if it jumps.
 - **Progress accuracy:** Stages are discrete (attribute-based), not byte-accurate download percent.
 

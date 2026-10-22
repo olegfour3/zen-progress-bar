@@ -10,9 +10,16 @@
   "readme": "README.md",
   "image": "preview.png",
   "author": "oleg",
-  "version": "1.0.1",
-  "tags": ["loadbar", "progress", "zen", "glow"],
-  "fork": ["zen"],
+  "version": "1.0.2",
+  "tags": [
+    "loadbar",
+    "progress",
+    "zen",
+    "glow"
+  ],
+  "fork": [
+    "zen"
+  ],
   "createdAt": "2026-10-22",
-  "updatedAt": "2026-10-22"
+  "updatedAt": "2026-10-22T20:54:29.000Z"
 }
