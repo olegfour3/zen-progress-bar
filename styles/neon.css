@@ -1,0 +1,132 @@
+/* Neon — default look + continuous pulse (width from --zpb-p / JS). */
+
+:root {
+  --zpb-height: 2px;
+  --zpb-glow-blur: 6px;
+  --zpb-bar-colour: #ffffff;
+  --zpb-blend: difference;
+}
+
+@media (-moz-pref("uc.zen-progress-bar.height", "1")) {
+  :root {
+    --zpb-height: 1px;
+  }
+}
+@media (-moz-pref("uc.zen-progress-bar.height", "2")) {
+  :root {
+    --zpb-height: 2px;
+  }
+}
+@media (-moz-pref("uc.zen-progress-bar.height", "3")) {
+  :root {
+    --zpb-height: 3px;
+  }
+}
+@media (-moz-pref("uc.zen-progress-bar.height", "4")) {
+  :root {
+    --zpb-height: 4px;
+  }
+}
+
+@media (-moz-pref("uc.zen-progress-bar.glow-strength", "soft")) {
+  :root {
+    --zpb-glow-blur: 3px;
+  }
+}
+@media (-moz-pref("uc.zen-progress-bar.glow-strength", "medium")) {
+  :root {
+    --zpb-glow-blur: 6px;
+  }
+}
+@media (-moz-pref("uc.zen-progress-bar.glow-strength", "strong")) {
+  :root {
+    --zpb-glow-blur: 12px;
+  }
+}
+
+@media (-moz-pref("uc.zen-progress-bar.color-mode", "contrast")) {
+  :root {
+    --zpb-bar-colour: #ffffff;
+    --zpb-blend: difference;
+  }
+}
+
+@media (-moz-pref("uc.zen-progress-bar.color-mode", "accent")) {
+  :root {
+    --zpb-bar-colour: var(--zen-primary-color, #7aa2f7);
+    --zpb-blend: normal;
+  }
+}
+
+@media (-moz-pref("uc.zen-progress-bar.color-mode", "custom")) {
+  :root {
+    --zpb-bar-colour: var(--uc-zen-progress-bar-color, #7aa2f7);
+    --zpb-blend: normal;
+  }
+}
+
+/* Default neon (also when style pref unset). XP/Tahoe override in their sheets. */
+#zpb-bar {
+  height: var(--zpb-height) !important;
+  min-height: var(--zpb-height) !important;
+  max-height: var(--zpb-height) !important;
+  background-color: var(--zpb-bar-colour) !important;
+  background-image: none !important;
+  box-shadow:
+    0 0 0 1px var(--zpb-bar-colour),
+    0 0 var(--zpb-glow-blur) var(--zpb-bar-colour),
+    0 0 calc(var(--zpb-glow-blur) * 2.2) var(--zpb-bar-colour) !important;
+  mix-blend-mode: var(--zpb-blend) !important;
+}
+
+@media (-moz-pref("uc.zen-progress-bar.style", "neon")) {
+  #zpb-bar {
+    height: var(--zpb-height) !important;
+    min-height: var(--zpb-height) !important;
+    max-height: var(--zpb-height) !important;
+    background-color: var(--zpb-bar-colour) !important;
+    background-image: none !important;
+    box-shadow:
+      0 0 0 1px var(--zpb-bar-colour),
+      0 0 var(--zpb-glow-blur) var(--zpb-bar-colour),
+      0 0 calc(var(--zpb-glow-blur) * 2.2) var(--zpb-bar-colour) !important;
+    mix-blend-mode: var(--zpb-blend) !important;
+  }
+}
+
+@media (-moz-pref("uc.zen-progress-bar.glow", false)) {
+  #zpb-bar {
+    box-shadow: 0 0 0 1px var(--zpb-bar-colour) !important;
+  }
+}
+
+@media (-moz-pref("uc.zen-progress-bar.rounded", false)) {
+  #zpb-bar {
+    border-radius: 0 !important;
+  }
+}
+
+@media (-moz-pref("uc.zen-progress-bar.rounded", true)) {
+  #zpb-bar {
+    border-radius: 0 var(--zpb-height) var(--zpb-height) 0 !important;
+  }
+}
+
+/* Pulse glow/opacity while active — never animate transform (width is JS). */
+@keyframes zpb-neon-pulse {
+  from {
+    opacity: 0.72;
+    filter: brightness(0.92);
+  }
+  to {
+    opacity: 1;
+    filter: brightness(1.15);
+  }
+}
+
+:root[zpb-active] #zpb-bar,
+:root[zpb-active="true"] #zpb-bar {
+  animation: zpb-neon-pulse 1.1s ease-in-out infinite alternate !important;
+}
+
+/* XP/Tahoe turn off neon pulse in their sheets via animation override. */

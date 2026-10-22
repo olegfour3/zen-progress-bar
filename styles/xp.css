@@ -1,0 +1,46 @@
+/* Windows XP copy-dialog chunks. */
+
+@keyframes zpb-xp-march {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 28px 0, 0 0;
+  }
+}
+
+@media (-moz-pref("uc.zen-progress-bar.style", "xp")) {
+  #zpb-bar {
+    height: 12px !important;
+    min-height: 12px !important;
+    max-height: 12px !important;
+    border: 1px solid #0054e3 !important;
+    border-radius: 2px !important;
+    mix-blend-mode: normal !important;
+    filter: none !important;
+    opacity: 1 !important;
+    background-color: #ece9d8 !important;
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        #1a66ff 0 8px,
+        #3c8bff 8px 10px,
+        transparent 10px 14px
+      ),
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.55) 0%,
+        rgba(255, 255, 255, 0.12) 40%,
+        transparent 55%
+      ) !important;
+    background-size: 28px 100%, 100% 100% !important;
+    background-repeat: repeat, no-repeat !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+  }
+
+  :root[zpb-active] #zpb-bar,
+  :root[zpb-active="true"] #zpb-bar {
+    animation: zpb-xp-march 0.55s linear infinite !important;
+  }
+}

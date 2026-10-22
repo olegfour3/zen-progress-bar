@@ -7,17 +7,29 @@
 
   const ROOT = document.documentElement;
   const ATTR = "zpb-active";
-  const MODE_ATTR = "zpb-mode";
   const BAR_ID = "zpb-bar";
-  const FINISH_MS = 150;
-  // nsIWebProgressListener
-  const STATE_START = 0x00000001;
-  const STATE_IS_NETWORK = 0x00040000;
 
-  /** @type {WeakMap<object, { ratio: number|null, determinate: boolean }>} */
-  const progressByBrowser = new WeakMap();
-  let finishTimer = null;
-  let finishing = false;
+  // nsIWebProgressListener (Zia uses STATE_IS_WINDOW for start/stop)
+  let STATE_START = 0x00000001;
+  let STATE_STOP = 0x00000010;
+  let STATE_IS_WINDOW = 0x00080000;
+  try {
+    if (typeof Ci !== "undefined" && Ci.nsIWebProgressListener) {
+      ({ STATE_START, STATE_STOP, STATE_IS_WINDOW } = Ci.nsIWebProgressListener);
+    }
+  } catch {
+    /* keep numeric fallbacks */
+  }
+
+  const loader = {
+    shown: 0,
+    target: 0,
+    active: false,
+    finishing: false,
+    estimateTimer: null,
+    hideTimer: null,
+    frame: null,
+  };
 
   function selectedTab() {
     try {
@@ -35,7 +47,11 @@
     }
   }
 
-  function isLoading() {
+  function isSelectedBrowser(browser) {
+    return Boolean(browser && browser === selectedBrowser());
+  }
+
+  function tabIsLoading() {
     if (ROOT.hasAttribute("zia-loading")) {
       return true;
     }
@@ -44,22 +60,6 @@
       return false;
     }
     return tab.hasAttribute("busy") || tab.hasAttribute("progress");
-  }
-
-  function getState(browser) {
-    if (!browser) {
-      return { ratio: null, determinate: false };
-    }
-    let state = progressByBrowser.get(browser);
-    if (!state) {
-      state = { ratio: null, determinate: false };
-      progressByBrowser.set(browser, state);
-    }
-    return state;
-  }
-
-  function clampRatio(n) {
-    return Math.min(1, Math.max(0.02, n));
   }
 
   function ensureBar() {
@@ -80,87 +80,135 @@
     return bar;
   }
 
-  function applyProgress(bar, state) {
-    const mode = state.determinate ? "determinate" : "indeterminate";
-    ROOT.setAttribute(MODE_ATTR, mode);
-    const p = state.determinate ? clampRatio(state.ratio ?? 0.02) : 0.02;
-    bar.style.setProperty("--zpb-p", String(p));
+  function drawProgress() {
+    const bar = ensureBar();
+    bar.style.setProperty("--zpb-p", loader.shown.toFixed(4));
+    ROOT.style.setProperty("--zpb-p", loader.shown.toFixed(4));
   }
 
-  function clearFinishTimer() {
-    if (finishTimer) {
-      window.clearTimeout(finishTimer);
-      finishTimer = null;
+  function stopLoaderTimers() {
+    if (loader.estimateTimer) {
+      clearInterval(loader.estimateTimer);
+      loader.estimateTimer = null;
+    }
+    if (loader.hideTimer) {
+      clearTimeout(loader.hideTimer);
+      loader.hideTimer = null;
     }
   }
 
-  function hideBar() {
-    finishing = false;
-    ROOT.removeAttribute(ATTR);
-    ROOT.removeAttribute(MODE_ATTR);
-  }
-
-  function finish() {
-    if (finishing) {
+  function animateLoader() {
+    loader.frame = null;
+    const diff = loader.target - loader.shown;
+    const next =
+      loader.shown +
+      (Math.abs(diff) < 0.001 ? diff : diff * (loader.finishing ? 0.3 : 0.12));
+    loader.shown = Math.max(loader.shown, next);
+    drawProgress();
+    if (loader.finishing && loader.shown >= 0.999) {
+      loader.finishing = false;
+      loader.hideTimer = setTimeout(() => {
+        loader.hideTimer = null;
+        ROOT.removeAttribute(ATTR);
+      }, 150);
       return;
     }
-    finishing = true;
-    clearFinishTimer();
-    const bar = ensureBar();
-    const browser = selectedBrowser();
-    const state = getState(browser);
-    state.ratio = 1;
-    state.determinate = true;
-    ROOT.setAttribute(ATTR, "true");
-    applyProgress(bar, state);
-    finishTimer = window.setTimeout(() => {
-      finishTimer = null;
-      hideBar();
-      if (browser) {
-        const s = getState(browser);
-        s.ratio = null;
-        s.determinate = false;
-      }
-    }, FINISH_MS);
-  }
-
-  function sync() {
-    const on = isLoading();
-    if (on) {
-      if (finishing) {
-        clearFinishTimer();
-        finishing = false;
-      }
-      const bar = ensureBar();
-      const state = getState(selectedBrowser());
-      if (state.ratio == null) {
-        state.ratio = 0.02;
-        state.determinate = false;
-      }
-      ROOT.setAttribute(ATTR, "true");
-      applyProgress(bar, state);
-    } else if (ROOT.hasAttribute(ATTR) || finishing) {
-      finish();
+    if (loader.active || loader.finishing) {
+      loader.frame = requestAnimationFrame(animateLoader);
     }
   }
 
-  function isSelectedBrowser(browser) {
-    return Boolean(browser && browser === selectedBrowser());
+  function runLoader() {
+    if (!loader.frame) {
+      loader.frame = requestAnimationFrame(animateLoader);
+    }
   }
 
-  new MutationObserver(sync).observe(ROOT, {
+  function startLoader(from = 0.02, fresh = false) {
+    const stillShowing =
+      loader.active || loader.finishing || ROOT.hasAttribute(ATTR);
+    stopLoaderTimers();
+    loader.active = true;
+    loader.finishing = false;
+    if (fresh || !stillShowing) {
+      loader.shown = from;
+      loader.target = Math.max(from, 0.25);
+      drawProgress();
+    } else {
+      loader.target = Math.max(loader.target, loader.shown, from);
+    }
+    ROOT.setAttribute(ATTR, "true");
+    loader.estimateTimer = setInterval(() => {
+      if (loader.target < 0.9) {
+        loader.target += (0.9 - loader.target) * 0.06;
+      }
+    }, 250);
+    runLoader();
+  }
+
+  function reportRealProgress(fraction) {
+    if (loader.active && fraction > loader.target) {
+      loader.target = Math.min(0.95, fraction);
+    }
+  }
+
+  function finishLoader() {
+    if (!loader.active) {
+      return;
+    }
+    stopLoaderTimers();
+    loader.active = false;
+    loader.finishing = true;
+    loader.target = 1;
+    ROOT.setAttribute(ATTR, "true");
+    runLoader();
+  }
+
+  function cancelLoader() {
+    stopLoaderTimers();
+    if (loader.frame) {
+      cancelAnimationFrame(loader.frame);
+      loader.frame = null;
+    }
+    loader.active = false;
+    loader.finishing = false;
+    loader.shown = 0;
+    loader.target = 0;
+    ROOT.removeAttribute(ATTR);
+  }
+
+  // Backup: Zia flag / busy without our window-state events
+  function syncFromBusy() {
+    const on = tabIsLoading();
+    if (on) {
+      if (!loader.active && !loader.finishing) {
+        startLoader();
+      }
+    } else if (loader.active) {
+      finishLoader();
+    }
+  }
+
+  new MutationObserver(syncFromBusy).observe(ROOT, {
     attributes: true,
     attributeFilter: ["zia-loading"],
   });
 
   window.addEventListener("TabSelect", () => {
     ensureBar();
-    sync();
+    if (tabIsLoading()) {
+      startLoader(0.25, true);
+    } else {
+      cancelLoader();
+    }
   });
 
   const tabContainer = gBrowser?.tabContainer;
   if (tabContainer) {
     tabContainer.addEventListener("TabAttrModified", (event) => {
+      if (event.target !== selectedTab()) {
+        return;
+      }
       const changed = event.detail?.changed;
       if (
         !changed ||
@@ -168,27 +216,25 @@
         changed.includes("progress") ||
         changed.includes("pendingicon")
       ) {
-        sync();
+        syncFromBusy();
       }
     });
   }
 
   try {
     gBrowser.addTabsProgressListener({
-      onStateChange(browser, webProgress, _request, flags) {
-        if (!webProgress?.isTopLevel || !isSelectedBrowser(browser)) {
+      onStateChange(browser, webProgress, _request, stateFlags) {
+        if (!webProgress?.isTopLevel || !(stateFlags & STATE_IS_WINDOW)) {
           return;
         }
-        if (
-          typeof flags === "number" &&
-          (flags & STATE_START) &&
-          (flags & STATE_IS_NETWORK)
-        ) {
-          const state = getState(browser);
-          state.ratio = 0.02;
-          state.determinate = false;
+        if (!isSelectedBrowser(browser)) {
+          return;
         }
-        sync();
+        if (stateFlags & STATE_START) {
+          startLoader();
+        } else if (stateFlags & STATE_STOP) {
+          finishLoader();
+        }
       },
       onProgressChange(
         browser,
@@ -196,30 +242,13 @@
         _request,
         _curSelf,
         _maxSelf,
-        curTotalProgress,
-        maxTotalProgress
+        curTotal,
+        maxTotal
       ) {
-        if (!webProgress?.isTopLevel || !isSelectedBrowser(browser)) {
+        if (!isSelectedBrowser(browser) || !(maxTotal > 0)) {
           return;
         }
-        const state = getState(browser);
-        if (typeof maxTotalProgress === "number" && maxTotalProgress > 0) {
-          state.ratio = clampRatio(curTotalProgress / maxTotalProgress);
-          state.determinate = true;
-        } else {
-          state.determinate = false;
-        }
-        if (!isLoading()) {
-          return;
-        }
-        const bar = ensureBar();
-        ROOT.setAttribute(ATTR, "true");
-        applyProgress(bar, state);
-      },
-      onLocationChange(browser, webProgress) {
-        if (webProgress?.isTopLevel && isSelectedBrowser(browser)) {
-          sync();
-        }
+        reportRealProgress(curTotal / maxTotal);
       },
     });
   } catch {
@@ -227,17 +256,17 @@
   }
 
   // ponytail: cheap backup if an event is missed (Zia/Zen attr races)
-  window.setInterval(sync, 200);
+  window.setInterval(syncFromBusy, 200);
 
   if (document.readyState === "complete") {
     ensureBar();
-    sync();
+    syncFromBusy();
   } else {
     window.addEventListener(
       "load",
       () => {
         ensureBar();
-        sync();
+        syncFromBusy();
       },
       { once: true }
     );
