@@ -2,7 +2,7 @@
 
 Full-width thin loading bar with glow for [Zen Browser](https://zen-browser.app/), installed via [Sine Mods](https://github.com/CosmoCreeper/Sine).
 
-While a tab is loading, Zen creates `#zen-loading-progress-bar`. This mod restyles that native element into a thin full-width glow bar across the content area. CSS-only — no userChromeJS. Works with Zia (which only hides the native pill; we re-show and restyle it).
+Thin full-width glow bar while a page loads. CSS-only. Under **Zia** the native Zen pill is hidden and load state lives on `:root[zia-loading]` — this mod listens to that (and to tab `[busy]` without Zia), painting `#zen-appcontent-wrapper::after` so nothing needs disabling.
 
 ## Install (Sine)
 
@@ -48,7 +48,7 @@ Available in the Sine mod preferences panel (`uc.zen-progress-bar.*`):
 
 ## Compatibility notes
 
-- **Works with Zia.** Zia sets `#zen-loading-progress-bar { display: none }`; we override with higher specificity and restyle. Nothing to disable.
+- **Works with Zia.** Zia hides `#zen-loading-progress-bar` and uses a urlbar loader (`zia-loading`). We draw our own overlay on `#zen-appcontent-wrapper::after` from that flag — Zia stays on.
 - **Sine:** CSS must not be wrapped in `@-moz-document` — Sine injects chrome sheets itself.
 - **Sine updates:** detection uses `updatedAt` (strictly newer ISO date); `version` is for humans / display.
 - **Zen updates:** Chrome selectors can change after major Zen releases; re-check the bar if it jumps.
