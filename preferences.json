@@ -17,7 +17,7 @@
     "options": [
       { "label": "Neon (default)", "value": "neon" },
       { "label": "Windows XP", "value": "xp" },
-      { "label": "Glass aurora", "value": "tahoe" }
+      { "label": "Minimal line", "value": "line" }
     ]
   },
   {

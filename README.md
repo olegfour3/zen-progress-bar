@@ -4,7 +4,7 @@ Full-width loading bar for [Zen Browser](https://zen-browser.app/), installed vi
 
 Inserts `#zpb-bar` into the selected `.browserSidebarContainer` and toggles `:root[zpb-active]` from Zia’s `zia-loading`, tab `busy`/`progress`, and top-level window load state. Works when Zia hides Zen’s native pill.
 
-**Styles:** Neon (white stays white — dark edge, no `mix-blend`), Windows XP (fixed green blocks revealed by clip), Glass aurora (indigo→violet fill on frosted track) — each in `styles/*.css`, `@import`ed from `chrome.css`.  
+**Styles:** Neon (glow + pulse), Windows XP (fixed green blocks), Minimal line (NProgress-style 2px) — each in `styles/*.css`, `@import`ed from `chrome.css`.  
 **Progress:** Zia-like smooth bar (`shown` → `target` with estimate creep). Bytes from `onProgressChange` only push the target up (capped at 95%); finish eases to 100% then hides.
 
 ## Install (Sine)
@@ -35,7 +35,7 @@ Available in the Sine mod preferences panel (`uc.zen-progress-bar.*`):
 | Setting | Default | Notes |
 |--------|---------|--------|
 | Enable progress bar | on | Master toggle |
-| Style | Neon | Neon / Windows XP / Glass aurora |
+| Style | Neon | Neon / Windows XP / Minimal line |
 | Bar height | 2px | Neon only — 1 / 2 / 3 / 4 px |
 | Color mode | contrast | Neon only — contrast vs page / Zen accent / custom |
 | Custom color | (custom mode) | Neon only — any CSS color |
@@ -59,7 +59,7 @@ Available in the Sine mod preferences panel (`uc.zen-progress-bar.*`):
 ## Compatibility notes
 
 - **Works with Zia.** Zia hides `#zen-loading-progress-bar` and uses a urlbar loader (`zia-loading`). We draw `#zpb-bar` inside `.browserSidebarContainer` from that flag and tab/window load state — Zia stays on. Progress math mirrors Zia’s urlbar loader, not packet-only width.
-- **Sine:** CSS must not be wrapped in `@-moz-document` — Sine injects chrome sheets itself. Style files live under `styles/` and are `@import`ed from `chrome.css`.
+- **Sine:** CSS must not be wrapped in `@-moz-document` — Sine injects chrome sheets itself. Style files: `styles/neon.css`, `xp.css`, `line.css` — `@import`ed from `chrome.css`.
 - **Sine updates:** detection uses `updatedAt` (strictly newer ISO date); `version` is for humans / display.
 - **Zen updates:** Chrome selectors can change after major Zen releases; re-check the bar if it jumps.
 

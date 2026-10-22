@@ -1,10 +1,9 @@
-/* Neon — solid colours (no mix-blend: difference — it turns yellow on dark blues). */
+/* Neon — glowing bar + continuous pulse (no mix-blend:difference — avoids yellow). */
 
 :root {
   --zpb-height: 2px;
   --zpb-glow-blur: 6px;
   --zpb-bar-colour: #ffffff;
-  --zpb-edge: #0a0a0a;
 }
 
 @media (-moz-pref("uc.zen-progress-bar.height", "1")) {
@@ -44,25 +43,21 @@
   }
 }
 
-/* contrast: stay white; dark hairline for light pages */
 @media (-moz-pref("uc.zen-progress-bar.color-mode", "contrast")) {
   :root {
     --zpb-bar-colour: #ffffff;
-    --zpb-edge: #0a0a0a;
   }
 }
 
 @media (-moz-pref("uc.zen-progress-bar.color-mode", "accent")) {
   :root {
     --zpb-bar-colour: var(--zen-primary-color, #7aa2f7);
-    --zpb-edge: color-mix(in srgb, var(--zpb-bar-colour) 35%, #000);
   }
 }
 
 @media (-moz-pref("uc.zen-progress-bar.color-mode", "custom")) {
   :root {
     --zpb-bar-colour: var(--uc-zen-progress-bar-color, #7aa2f7);
-    --zpb-edge: color-mix(in srgb, var(--zpb-bar-colour) 35%, #000);
   }
 }
 
@@ -73,9 +68,9 @@
   background-color: var(--zpb-bar-colour) !important;
   background-image: none !important;
   mix-blend-mode: normal !important;
+  /* hard core + glow (old neon look) */
   box-shadow:
-    0 0 0 1px var(--zpb-edge),
-    0 0 0 2px var(--zpb-bar-colour),
+    0 0 0 1px var(--zpb-bar-colour),
     0 0 var(--zpb-glow-blur) var(--zpb-bar-colour),
     0 0 calc(var(--zpb-glow-blur) * 2.2) var(--zpb-bar-colour) !important;
 }
@@ -89,7 +84,17 @@
     background-image: none !important;
     mix-blend-mode: normal !important;
     box-shadow:
-      0 0 0 1px var(--zpb-edge),
+      0 0 0 1px var(--zpb-bar-colour),
+      0 0 var(--zpb-glow-blur) var(--zpb-bar-colour),
+      0 0 calc(var(--zpb-glow-blur) * 2.2) var(--zpb-bar-colour) !important;
+  }
+}
+
+/* contrast on light pages: faint dark rim so white still reads */
+@media (-moz-pref("uc.zen-progress-bar.color-mode", "contrast")) {
+  #zpb-bar {
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.35),
       0 0 0 2px var(--zpb-bar-colour),
       0 0 var(--zpb-glow-blur) var(--zpb-bar-colour),
       0 0 calc(var(--zpb-glow-blur) * 2.2) var(--zpb-bar-colour) !important;
@@ -98,9 +103,7 @@
 
 @media (-moz-pref("uc.zen-progress-bar.glow", false)) {
   #zpb-bar {
-    box-shadow:
-      0 0 0 1px var(--zpb-edge),
-      0 0 0 2px var(--zpb-bar-colour) !important;
+    box-shadow: 0 0 0 1px var(--zpb-bar-colour) !important;
   }
 }
 
@@ -116,12 +119,15 @@
   }
 }
 
+/* old pulse: opacity + brightness */
 @keyframes zpb-neon-pulse {
   from {
-    opacity: 0.78;
+    opacity: 0.72;
+    filter: brightness(0.92);
   }
   to {
     opacity: 1;
+    filter: brightness(1.18);
   }
 }
 
