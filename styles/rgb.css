@@ -1,20 +1,24 @@
-/* RGB prism — cycling rainbow; no white rim/underlay. */
+/*
+ * RGB prism — gradient from selected --zpb-bar-colour; seamless hue-rotate loop
+ * (0→360°, no background-position slide → no seam).
+ */
 
 @keyframes zpb-rgb-shift {
   from {
-    filter: hue-rotate(0deg) saturate(1.2);
+    filter: hue-rotate(0deg) saturate(1.25);
   }
   to {
-    filter: hue-rotate(360deg) saturate(1.35);
+    filter: hue-rotate(360deg) saturate(1.25);
   }
 }
 
-@keyframes zpb-rgb-slide {
-  from {
-    background-position: 0% 0;
-  }
-  to {
-    background-position: 100% 0;
+/* contrast white → vivid base so the prism has something to rotate */
+@media (-moz-pref("uc.zen-progress-bar.style", "rgb")) and
+  (-moz-pref("uc.zen-progress-bar.color-mode", "contrast")),
+  (-moz-pref("uc.zen-progress-bar.style", "ink")) and
+  (-moz-pref("uc.zen-progress-bar.color-mode", "contrast")) {
+  :root {
+    --zpb-bar-colour: #6366f1;
   }
 }
 
@@ -25,36 +29,35 @@
     min-height: var(--zpb-height) !important;
     max-height: var(--zpb-height) !important;
     border: none !important;
+    outline: none !important;
     mix-blend-mode: normal !important;
     opacity: 1 !important;
     clip-path: none !important;
-    /* kill any inherited white fill from neon defaults */
     background-color: transparent !important;
+    /* closed loop: first stop === last stop; hues derived from chosen colour */
     background-image: linear-gradient(
       90deg,
-      #ff0040,
-      #ffcc00,
-      #00e676,
-      #00b0ff,
-      #d500f9,
-      #ff0040
+      var(--zpb-bar-colour),
+      color-mix(in srgb, var(--zpb-bar-colour) 55%, #ffffff),
+      color-mix(in srgb, var(--zpb-bar-colour) 45%, #22d3ee),
+      color-mix(in srgb, var(--zpb-bar-colour) 40%, #e879f9),
+      color-mix(in srgb, var(--zpb-bar-colour) 50%, #fbbf24),
+      var(--zpb-bar-colour)
     ) !important;
-    background-size: 200% 100% !important;
+    background-size: 100% 100% !important;
     background-repeat: no-repeat !important;
-    /* dark hairline only — no white ring */
+    background-position: 0 0 !important;
     box-shadow:
-      0 0 0 1px rgba(0, 0, 0, 0.45),
-      0 0 var(--zpb-glow-blur) #ff0040,
-      0 0 calc(var(--zpb-glow-blur) * 1.4) #00b0ff !important;
+      0 0 var(--zpb-glow-blur) var(--zpb-bar-colour),
+      0 0 calc(var(--zpb-glow-blur) * 1.4)
+        color-mix(in srgb, var(--zpb-bar-colour) 50%, #22d3ee) !important;
     overflow: visible !important;
   }
 
   :root[zpb-active] #zpb-bar,
   :root[zpb-active="true"] #zpb-bar {
-    /* slower prism cycle */
-    animation:
-      zpb-rgb-shift 4.5s linear infinite,
-      zpb-rgb-slide 3.2s linear infinite !important;
+    /* single seamless cycle */
+    animation: zpb-rgb-shift 5s linear infinite !important;
   }
 }
 
@@ -63,6 +66,6 @@
   (-moz-pref("uc.zen-progress-bar.style", "ink")) and
   (-moz-pref("uc.zen-progress-bar.glow", false)) {
   #zpb-bar {
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45) !important;
+    box-shadow: none !important;
   }
 }
