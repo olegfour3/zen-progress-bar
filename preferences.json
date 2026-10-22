@@ -11,6 +11,17 @@
   },
   {
     "type": "dropdown",
+    "property": "uc.zen-progress-bar.style",
+    "label": "Style",
+    "defaultValue": "neon",
+    "options": [
+      { "label": "Neon (default)", "value": "neon" },
+      { "label": "Windows XP", "value": "xp" },
+      { "label": "Tahoe glass", "value": "tahoe" }
+    ]
+  },
+  {
+    "type": "dropdown",
     "property": "uc.zen-progress-bar.height",
     "label": "Bar height",
     "defaultValue": "2",
@@ -19,6 +30,9 @@
       { "label": "2px (default)", "value": "2" },
       { "label": "3px", "value": "3" },
       { "label": "4px", "value": "4" }
+    ],
+    "conditions": [
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } }
     ]
   },
   {
@@ -30,6 +44,9 @@
       { "label": "Contrast vs page (default)", "value": "contrast" },
       { "label": "Zen accent", "value": "accent" },
       { "label": "Custom", "value": "custom" }
+    ],
+    "conditions": [
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } }
     ]
   },
   {
@@ -39,6 +56,7 @@
     "border": "value",
     "placeholder": "#7aa2f7",
     "conditions": [
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } },
       { "if": { "property": "uc.zen-progress-bar.color-mode", "value": "custom" } }
     ]
   },
@@ -46,7 +64,10 @@
     "type": "checkbox",
     "property": "uc.zen-progress-bar.glow",
     "label": "Glow effect",
-    "defaultValue": true
+    "defaultValue": true,
+    "conditions": [
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } }
+    ]
   },
   {
     "type": "dropdown",
@@ -59,6 +80,7 @@
       { "label": "Strong", "value": "strong" }
     ],
     "conditions": [
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } },
       { "if": { "property": "uc.zen-progress-bar.glow", "value": true } }
     ]
   },
@@ -76,6 +98,9 @@
     "type": "checkbox",
     "property": "uc.zen-progress-bar.rounded",
     "label": "Rounded leading edge",
-    "defaultValue": true
+    "defaultValue": true,
+    "conditions": [
+      { "if": { "property": "uc.zen-progress-bar.style", "value": "neon" } }
+    ]
   }
 ]

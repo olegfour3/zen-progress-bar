@@ -1,8 +1,11 @@
 # Zen Progress Bar
 
-Full-width thin loading bar with glow for [Zen Browser](https://zen-browser.app/), installed via [Sine Mods](https://github.com/CosmoCreeper/Sine).
+Full-width loading bar for [Zen Browser](https://zen-browser.app/), installed via [Sine Mods](https://github.com/CosmoCreeper/Sine).
 
-Thin full-width glow bar while a page loads. Uses a small `zen-progress-bar.uc.js` that inserts `#zpb-bar` and toggles `:root[zpb-active]` from Zia’s `zia-loading` and tab `busy`/`progress` — so it works even when Zia hides Zen’s native pill.
+Inserts `#zpb-bar` into the selected `.browserSidebarContainer` and toggles `:root[zpb-active]` from Zia’s `zia-loading` and tab `busy`/`progress`. Works when Zia hides Zen’s native pill.
+
+**Styles:** Neon (glow), Windows XP copy chunks, Tahoe glass edge.  
+**Progress:** real byte progress via `onProgressChange` when the browser reports totals; otherwise ping-pong indeterminate. On finish, snaps to 100% then hides.
 
 ## Install (Sine)
 
@@ -32,25 +35,30 @@ Available in the Sine mod preferences panel (`uc.zen-progress-bar.*`):
 | Setting | Default | Notes |
 |--------|---------|--------|
 | Enable progress bar | on | Master toggle |
-| Bar height | 2px | 1 / 2 / 3 / 4 px |
-| Color mode | contrast | Contrast vs page / Zen accent / custom |
-| Custom color | (custom mode) | Any CSS color |
-| Glow effect | on | Soft drop-shadow using the bar color |
-| Glow strength | medium | soft / medium / strong |
-| Position | top | top or bottom of the content area |
-| Rounded leading edge | on | Round the growing end of the bar |
+| Style | Neon | Neon / Windows XP / Tahoe glass |
+| Bar height | 2px | Neon only — 1 / 2 / 3 / 4 px |
+| Color mode | contrast | Neon only — contrast vs page / Zen accent / custom |
+| Custom color | (custom mode) | Neon only — any CSS color |
+| Glow effect | on | Neon only — soft drop-shadow |
+| Glow strength | medium | Neon only — soft / medium / strong |
+| Position | top | All styles — top or bottom of the content area |
+| Rounded leading edge | on | Neon only |
+
+**Progress behavior:** determinate `scaleX` from download bytes when available; ping-pong animation when totals are unknown (SPA, cache, Zia-only). After load completes, the bar snaps full then disappears (~150ms).
 
 ## Acceptance checklist
 
 - [ ] Mod appears after installing `olegfour3/zen-progress-bar` in Sine
-- [ ] Navigating to a page shows a thin glowing bar across the content width
-- [ ] Changing height / color / glow in Sine prefs updates the bar without editing files
+- [ ] Neon / XP / Tahoe styles switch in Sine prefs and look distinct
+- [ ] Normal navigation shows determinate growth when bytes are reported
+- [ ] Pages without byte totals show ping-pong until load ends
+- [ ] After load, bar reaches full width briefly then hides
 - [ ] Dual-toolbar / compact / single-toolbar layouts keep the bar under (or clear of) the navbar
 - [ ] Zen Glance overlay does not leave a full-bleed bar behind the glance card
 
 ## Compatibility notes
 
-- **Works with Zia.** Zia hides `#zen-loading-progress-bar` and uses a urlbar loader (`zia-loading`). We draw our own overlay on `#zen-appcontent-wrapper::after` from that flag — Zia stays on.
+- **Works with Zia.** Zia hides `#zen-loading-progress-bar` and uses a urlbar loader (`zia-loading`). We draw `#zpb-bar` inside `.browserSidebarContainer` from that flag and tab busy state — Zia stays on.
 - **Sine:** CSS must not be wrapped in `@-moz-document` — Sine injects chrome sheets itself.
 - **Sine updates:** detection uses `updatedAt` (strictly newer ISO date); `version` is for humans / display.
 - **Zen updates:** Chrome selectors can change after major Zen releases; re-check the bar if it jumps.
