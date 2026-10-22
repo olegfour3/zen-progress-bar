@@ -16,6 +16,7 @@
     height: var(--zpb-height) !important;
     min-height: var(--zpb-height) !important;
     max-height: var(--zpb-height) !important;
+    border: none !important;
     background-color: var(--zpb-bar-colour) !important;
     background-image: none !important;
     mix-blend-mode: normal !important;
