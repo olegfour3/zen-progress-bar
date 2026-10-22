@@ -8,7 +8,6 @@ Inserts `#zpb-bar` into the selected `.browserSidebarContainer` and toggles `:ro
 
 - **Neon** — glow + continuous pulse
 - **Windows XP** — fixed-width green blocks on white (clip reveal)
-- **Minimal line** — NProgress-like tip glow
 - **Soft track** — muted full-width track + rounded fill
 - **RGB prism** — seamless hue-shift gradient from the selected colour (Preset / Accent / Custom)
 
@@ -42,23 +41,23 @@ Available in the Sine mod preferences panel (`uc.zen-progress-bar.*`):
 | Setting | Default | Notes |
 |--------|---------|--------|
 | Enable progress bar | on | Master toggle |
-| Style | Neon | Neon / Windows XP / Minimal line / Soft track / RGB prism |
-| Bar height | 2px | Neon, Line, Soft, RGB — 1 / 2 / 3 / 4 px (not XP) |
+| Style | Neon | Neon / Windows XP / Soft track / RGB prism |
+| Bar height | 2px | Neon, Soft, RGB — 1 / 2 / 3 / 4 px (not XP) |
 | Color mode | contrast | All styles — contrast / Zen accent / preset / custom |
 | Preset color | Blue | All styles — 10 colours when mode is Preset |
 | Custom color | (custom mode) | All styles — any CSS color |
-| Glow effect | on | Neon, Line, Soft, RGB |
+| Glow effect | on | Neon, Soft, RGB |
 | Glow strength | medium | soft / medium / strong |
 | Position | top | All styles — top or bottom |
-| Rounded leading edge | on | Neon, Line, Soft, RGB (Soft is pill-shaped when on) |
+| Rounded leading edge | on | Neon, Soft, RGB (Soft is pill-shaped when on) |
 
 **Progress behavior:** starts near ~25%, eases toward ~90% while loading (estimate), real bytes can advance the target sooner; on complete, eases to full width then disappears (~150ms). Neon also pulses while visible.
 
 ## Acceptance checklist
 
 - [ ] Mod appears after installing `olegfour3/zen-progress-bar` in Sine
-- [ ] Neon / XP / Line / Soft / RGB switch in Sine prefs and look distinct
-- [ ] Height / color / glow work for Neon, Line, Soft, RGB
+- [ ] Neon / XP / Soft / RGB switch in Sine prefs and look distinct
+- [ ] Height / color / glow work for Neon, Soft, RGB
 - [ ] On navigation the bar grows smoothly (not stuck as a short stub)
 - [ ] Neon pulses while visible; width still follows progress
 - [ ] After load, bar reaches full width then hides

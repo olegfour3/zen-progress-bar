@@ -9,7 +9,10 @@
   }
 }
 
-@media (-moz-pref("uc.zen-progress-bar.style", "soft")) {
+/* "line" / "tahoe" alias → soft (Minimal line removed) */
+@media (-moz-pref("uc.zen-progress-bar.style", "soft")),
+  (-moz-pref("uc.zen-progress-bar.style", "line")),
+  (-moz-pref("uc.zen-progress-bar.style", "tahoe")) {
   #zpb-bar {
     transform: none !important;
     width: auto !important;
@@ -54,6 +57,10 @@
 }
 
 @media (-moz-pref("uc.zen-progress-bar.style", "soft")) and
+  (-moz-pref("uc.zen-progress-bar.glow", false)),
+  (-moz-pref("uc.zen-progress-bar.style", "line")) and
+  (-moz-pref("uc.zen-progress-bar.glow", false)),
+  (-moz-pref("uc.zen-progress-bar.style", "tahoe")) and
   (-moz-pref("uc.zen-progress-bar.glow", false)) {
   #zpb-bar {
     box-shadow:
@@ -63,6 +70,10 @@
 }
 
 @media (-moz-pref("uc.zen-progress-bar.style", "soft")) and
+  (-moz-pref("uc.zen-progress-bar.rounded", false)),
+  (-moz-pref("uc.zen-progress-bar.style", "line")) and
+  (-moz-pref("uc.zen-progress-bar.rounded", false)),
+  (-moz-pref("uc.zen-progress-bar.style", "tahoe")) and
   (-moz-pref("uc.zen-progress-bar.rounded", false)) {
   #zpb-bar {
     border-radius: 0 !important;

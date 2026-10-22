@@ -24,10 +24,6 @@
         "value": "xp"
       },
       {
-        "label": "Minimal line",
-        "value": "line"
-      },
-      {
         "label": "Soft track",
         "value": "soft"
       },
@@ -66,12 +62,6 @@
         "if": {
           "property": "uc.zen-progress-bar.style",
           "value": "neon"
-        }
-      },
-      {
-        "if": {
-          "property": "uc.zen-progress-bar.style",
-          "value": "line"
         }
       },
       {
@@ -123,12 +113,6 @@
         "if": {
           "property": "uc.zen-progress-bar.style",
           "value": "xp"
-        }
-      },
-      {
-        "if": {
-          "property": "uc.zen-progress-bar.style",
-          "value": "line"
         }
       },
       {
@@ -212,12 +196,6 @@
           {
             "if": {
               "property": "uc.zen-progress-bar.style",
-              "value": "line"
-            }
-          },
-          {
-            "if": {
-              "property": "uc.zen-progress-bar.style",
               "value": "soft"
             }
           },
@@ -263,12 +241,6 @@
           {
             "if": {
               "property": "uc.zen-progress-bar.style",
-              "value": "line"
-            }
-          },
-          {
-            "if": {
-              "property": "uc.zen-progress-bar.style",
               "value": "soft"
             }
           },
@@ -299,12 +271,6 @@
         "if": {
           "property": "uc.zen-progress-bar.style",
           "value": "neon"
-        }
-      },
-      {
-        "if": {
-          "property": "uc.zen-progress-bar.style",
-          "value": "line"
         }
       },
       {
@@ -349,12 +315,6 @@
             "if": {
               "property": "uc.zen-progress-bar.style",
               "value": "neon"
-            }
-          },
-          {
-            "if": {
-              "property": "uc.zen-progress-bar.style",
-              "value": "line"
             }
           },
           {
@@ -406,12 +366,6 @@
         "if": {
           "property": "uc.zen-progress-bar.style",
           "value": "neon"
-        }
-      },
-      {
-        "if": {
-          "property": "uc.zen-progress-bar.style",
-          "value": "line"
         }
       },
       {
