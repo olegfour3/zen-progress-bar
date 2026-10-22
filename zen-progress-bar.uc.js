@@ -3,6 +3,7 @@
     return;
   }
   window.__zpbLoaded = true;
+  console.info("[zen-progress-bar] script loaded");
 
   const ROOT = document.documentElement;
   const ATTR = "zpb-active";

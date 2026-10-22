@@ -9,7 +9,8 @@ Thin full-width glow bar while a page loads. Uses a small `zen-progress-bar.uc.j
 1. Install [Sine](https://github.com/CosmoCreeper/Sine) for Zen Browser if you do not have it yet.
 2. Open **Settings → Sine mods**.
 3. Enter `olegfour3/zen-progress-bar` and click **Install**.
-4. Enable **Zen Progress Bar**, then **restart Zen** (or toggle the mod off/on) so the chrome sheet reloads.
+4. In Sine settings, enable **Allow unsafe JavaScript** (`sine.allow-unsafe-js`) — required for GitHub-installed mods with scripts (store mods like Zia load JS without this).
+5. Enable **Zen Progress Bar**, then **restart Zen** so the script and CSS load.
 
 ### Updates
 
