@@ -1,11 +1,8 @@
 /* Zen Progress Bar — full-width load indicator for Zen + Sine Mods
  *
- * Zen already injects #zen-loading-progress-bar while a tab loads.
- * Themes like Zia hide it (`display: none !important` on that id).
- * We re-show it with higher specificity and restyle as a thin full-width
- * glow bar — no need to disable Zia or any other mod.
- *
- * Sine loads this as USER_SHEET — do not wrap in @-moz-document.
+ * Restyles Zen's #zen-loading-progress-bar. Must stay position:fixed
+ * (out of flex/XUL flow) — width:100% in-flow collapses the page.
+ * Higher specificity beats Zia's display:none. No @-moz-document (Sine).
  */
 
 :root {
@@ -51,32 +48,30 @@
   }
 }
 
-/* Containing block for the absolute bar */
-.browserSidebarContainer.deck-selected {
-  position: relative !important;
-}
-
 /*
- * Beat Zia’s `#zen-loading-progress-bar { display: none !important }`
- * (one ID) with two IDs. Also override Zen’s pill geometry / pulse.
+ * Beat Zia’s `#zen-loading-progress-bar { display: none !important }`.
+ * fixed = out of flow (do not use in-flow width:100% — collapses siblings).
  */
 #main-window #zen-loading-progress-bar,
 :root #tabbrowser-tabpanels #zen-loading-progress-bar {
-  display: block !important;
+  display: flex !important;
   visibility: visible !important;
   opacity: 1 !important;
 
-  position: absolute !important;
+  position: fixed !important;
   top: 0 !important;
-  right: auto !important;
+  right: 0 !important;
   bottom: auto !important;
   left: 0 !important;
 
-  width: 100% !important;
+  width: auto !important;
   max-width: none !important;
+  min-width: 0 !important;
   height: var(--zpb-height) !important;
   min-height: var(--zpb-height) !important;
+  max-height: var(--zpb-height) !important;
 
+  flex: none !important;
   margin: 0 !important;
   padding: 0 !important;
   border: none !important;
@@ -96,7 +91,6 @@
   pointer-events: none !important;
 }
 
-/* Growing sweep across the full content width */
 @keyframes zpb-sweep {
   0% {
     clip-path: inset(0 100% 0 0);
@@ -112,7 +106,6 @@
   }
 }
 
-/* Long-load: keep bar full-width, soft shimmer via ::before */
 #main-window #zen-loading-progress-bar[long-load="true"],
 :root #tabbrowser-tabpanels #zen-loading-progress-bar[long-load="true"] {
   clip-path: none !important;
@@ -144,7 +137,6 @@
   }
 }
 
-/* Prefs */
 @media (-moz-pref("uc.zen-progress-bar.enabled", false)) {
   #main-window #zen-loading-progress-bar,
   :root #tabbrowser-tabpanels #zen-loading-progress-bar {
@@ -181,7 +173,6 @@
   }
 }
 
-/* Glance: don’t leave a bar on the background pane */
 .browserSidebarContainer.zen-glance-background > #zen-loading-progress-bar {
   display: none !important;
 }

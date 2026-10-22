@@ -13,7 +13,7 @@ While a tab is loading, Zen creates `#zen-loading-progress-bar`. This mod restyl
 
 ### Updates
 
-Sine decides “is there an update?” by comparing **`updatedAt`** in `theme.json` (not `version`). On every release we bump both `version` and `updatedAt` (ISO timestamp).
+Sine decides “is there an update?” by comparing **`updatedAt`** in `theme.json` (not `version`). Bump **`version`** yourself when the change matters; **`updatedAt`** is set automatically on every commit via [`.githooks/pre-commit`](.githooks/pre-commit) (enable once: `git config core.hooksPath .githooks`).
 
 - If **Auto-update mods** is off (`sine.auto-updates`), click **Check for updates** / manual update in Sine.
 - After an update, restart Zen (or toggle the mod) so CSS applies.

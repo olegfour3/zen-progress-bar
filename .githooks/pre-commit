@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Bump theme.json updatedAt (ISO UTC) so Sine can detect mod updates.
+# Enable once: git config core.hooksPath .githooks
+
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+THEME="$ROOT/theme.json"
+
+if [[ ! -f "$THEME" ]]; then
+  exit 0
+fi
+
+# Skip if this commit has no staged changes (nothing to release).
+if git diff --cached --quiet; then
+  exit 0
+fi
+
+python3 - "$THEME" <<'PY'
+import json, sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+path = Path(sys.argv[1])
+data = json.loads(path.read_text(encoding="utf-8"))
+data["updatedAt"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z")
+path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+print(f"pre-commit: theme.json updatedAt -> {data['updatedAt']}")
+PY
+
+git add -- "$THEME"
