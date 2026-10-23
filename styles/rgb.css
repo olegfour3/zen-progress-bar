@@ -58,7 +58,7 @@
 
   :root[zpb-active] #zpb-bar,
   :root[zpb-active="true"] #zpb-bar {
-    animation: zpb-rgb-rainbow 5s linear infinite !important;
+    animation: zpb-rgb-rainbow 3.2s linear infinite !important;
   }
 }
 
@@ -92,7 +92,7 @@
 
   :root[zpb-active] #zpb-bar,
   :root[zpb-active="true"] #zpb-bar {
-    animation: zpb-rgb-tight 4.2s ease-in-out infinite !important;
+    animation: zpb-rgb-tight 2.8s ease-in-out infinite !important;
   }
 }
 
