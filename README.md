@@ -9,7 +9,7 @@ Inserts `#zpb-bar` into the selected `.browserSidebarContainer` and toggles `:ro
 - **Neon** — glow + continuous pulse
 - **Windows XP** — fixed-width green blocks on white (clip reveal)
 - **Soft track** — muted full-width track + rounded fill
-- **RGB prism** — full rainbow by default (Contrast); tight hue band when Preset / Accent / Custom
+- **RGB prism** — full rainbow on Color mode **Rainbow** (default); tight hue band on Preset / Accent / Custom
 
 **Progress:** Zia-like smooth bar (`shown` → `target` with estimate creep). Bytes from `onProgressChange` only push the target up (capped at 95%); finish eases to 100% then hides.
 
@@ -43,7 +43,7 @@ Available in the Sine mod preferences panel (`uc.zen-progress-bar.*`):
 | Enable progress bar | on | Master toggle |
 | Style | Neon | Neon / Windows XP / Soft track / RGB prism |
 | Bar height | 2px | Neon, Soft, RGB — 1 / 2 / 3 / 4 px (not XP) |
-| Color mode | contrast | All styles — contrast / Zen accent / preset / custom |
+| Color mode | Rainbow | All styles — rainbow / contrast / Zen accent / preset / custom |
 | Preset color | Blue | All styles — 10 colours when mode is Preset |
 | Custom color | (custom mode) | All styles — any CSS color |
 | Glow effect | on | Neon, Soft, RGB |

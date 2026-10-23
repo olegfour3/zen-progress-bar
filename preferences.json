@@ -82,11 +82,15 @@
     "type": "dropdown",
     "property": "uc.zen-progress-bar.color-mode",
     "label": "Color mode",
-    "defaultValue": "contrast",
+    "defaultValue": "rainbow",
     "operator": "OR",
     "options": [
       {
-        "label": "Contrast vs page (default)",
+        "label": "Rainbow (default)",
+        "value": "rainbow"
+      },
+      {
+        "label": "Contrast vs page",
         "value": "contrast"
       },
       {

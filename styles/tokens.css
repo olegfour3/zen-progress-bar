@@ -49,6 +49,13 @@
   }
 }
 
+/* Rainbow = default for RGB spectrum; other styles use white like contrast */
+@media (-moz-pref("uc.zen-progress-bar.color-mode", "rainbow")) {
+  :root {
+    --zpb-bar-colour: #ffffff;
+  }
+}
+
 @media (-moz-pref("uc.zen-progress-bar.color-mode", "contrast")) {
   :root {
     --zpb-bar-colour: #ffffff;
@@ -129,9 +136,11 @@
   }
 }
 
-/* XP + contrast: keep classic green chunks */
+/* XP + contrast/rainbow: keep classic green chunks */
 @media (-moz-pref("uc.zen-progress-bar.style", "xp")) and
-  (-moz-pref("uc.zen-progress-bar.color-mode", "contrast")) {
+  (-moz-pref("uc.zen-progress-bar.color-mode", "contrast")),
+  (-moz-pref("uc.zen-progress-bar.style", "xp")) and
+  (-moz-pref("uc.zen-progress-bar.color-mode", "rainbow")) {
   :root {
     --zpb-bar-colour: #06b025;
   }
