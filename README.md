@@ -9,7 +9,7 @@ Inserts `#zpb-bar` into the selected `.browserSidebarContainer` and toggles `:ro
 - **Neon** — glow + continuous pulse
 - **Windows XP** — fixed-width green blocks on white (clip reveal)
 - **Soft track** — muted full-width track + rounded fill
-- **RGB prism** — seamless hue-shift gradient from the selected colour (Preset / Accent / Custom)
+- **RGB prism** — full rainbow by default (Contrast); tight hue band when Preset / Accent / Custom
 
 **Progress:** Zia-like smooth bar (`shown` → `target` with estimate creep). Bytes from `onProgressChange` only push the target up (capped at 95%); finish eases to 100% then hides.
 
