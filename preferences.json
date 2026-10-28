@@ -385,5 +385,15 @@
         }
       }
     ]
+  },
+  {
+    "type": "separator",
+    "label": "Compact Mode"
+  },
+  {
+    "type": "checkbox",
+    "property": "uc.zen-progress-bar.suppress-sidebar-flash",
+    "label": "Keep sidebar hidden on tab open/close",
+    "defaultValue": true
   }
 ]

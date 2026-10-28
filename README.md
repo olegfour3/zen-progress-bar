@@ -50,6 +50,7 @@ Available in the Sine mod preferences panel (`uc.zen-progress-bar.*`):
 | Glow strength | medium | soft / medium / strong |
 | Position | top | All styles — top or bottom |
 | Rounded leading edge | on | Neon, Soft, RGB (Soft is pill-shaped when on) |
+| Keep sidebar hidden on tab open/close | on | Forces `zen.view.compact.toolbar-flash-popup` off (Compact Mode) |
 
 **Progress behavior:** starts near ~25%, eases toward ~90% while loading (estimate), real bytes can advance the target sooner; on complete, eases to full width then disappears (~150ms). Neon also pulses while visible.
 

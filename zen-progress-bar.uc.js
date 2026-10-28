@@ -8,6 +8,38 @@
   const ROOT = document.documentElement;
   const ATTR = "zpb-active";
   const BAR_ID = "zpb-bar";
+  const SUPPRESS_FLASH_PREF = "uc.zen-progress-bar.suppress-sidebar-flash";
+  const ZEN_FLASH_PREF = "zen.view.compact.toolbar-flash-popup";
+
+  // ponytail: Compact Mode flash is Zen-owned; we only force it off while our pref is on
+  function applySuppressSidebarFlash() {
+    try {
+      if (typeof Services === "undefined" || !Services.prefs) {
+        return;
+      }
+      if (Services.prefs.getBoolPref(SUPPRESS_FLASH_PREF, true)) {
+        Services.prefs.setBoolPref(ZEN_FLASH_PREF, false);
+      }
+    } catch {
+      /* restricted / no Services */
+    }
+  }
+
+  function observeSuppressSidebarFlash() {
+    try {
+      if (typeof Services === "undefined" || !Services.prefs) {
+        return;
+      }
+      const onPref = () => applySuppressSidebarFlash();
+      Services.prefs.addObserver(SUPPRESS_FLASH_PREF, onPref);
+      Services.prefs.addObserver(ZEN_FLASH_PREF, onPref);
+    } catch {
+      /* restricted / no Services */
+    }
+  }
+
+  applySuppressSidebarFlash();
+  observeSuppressSidebarFlash();
 
   // nsIWebProgressListener (Zia uses STATE_IS_WINDOW for start/stop)
   let STATE_START = 0x00000001;

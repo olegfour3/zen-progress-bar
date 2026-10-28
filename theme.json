@@ -17,7 +17,7 @@
   "readme": "README.md",
   "image": "preview.png",
   "author": "oleg",
-  "version": "1.7.10",
+  "version": "1.7.11",
   "tags": [
     "loadbar",
     "progress",
@@ -28,5 +28,5 @@
     "zen"
   ],
   "createdAt": "2026-10-22",
-  "updatedAt": "2026-10-23T09:03:00.000Z"
+  "updatedAt": "2026-10-28T06:57:55.000Z"
 }
